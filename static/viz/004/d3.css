@@ -1,0 +1,92 @@
+/* STRUCTURE ----------------------- */
+#canvas {
+background-color: #000;
+}
+
+svg {
+margin: 0 auto;
+display: block;
+background-color: #ddd;
+}
+
+/* TEXT - Typo ----------------------- */
+.text_headline {
+fill: #000;
+font-size: 28px;
+line-height: 1;
+font-weight: 600;
+}
+
+.text_headline_sub {
+fill: #000;
+font-size: 28px;
+line-height: 1;
+font-weight: 400;
+}
+
+.text_read {
+fill: #000;
+font-size: 20px;
+line-height: 1;
+font-weight: 400;
+}
+
+.text_label {
+fill: #fff;
+font-size: 20px;
+line-height: 1;
+font-weight: 600;
+}
+
+.text_source {
+fill: #000;
+font-size: 16px;
+line-height: 1;
+font-weight: 400;
+}
+
+
+/* MEDIA QUERIES ------------------------------------------------ */
+@media screen and (max-width: 640px) {
+
+/* STRUCTURE ----------------------- */
+svg {
+width: 270px;
+height: 270px;
+}
+
+.gfx_group {
+/*transform: translate(5px,5px) scale(0.5);*/
+transform: scale(0.5);
+}
+
+.layout_group {
+transform: scale(0.5);
+}
+
+.text_group {
+transform: scale(0.5);
+}
+
+/* TEXT - Typo ----------------------- */
+.text_headline {
+font-size: 32px;
+}
+
+.text_headline {
+font-size: 32px;
+}
+
+.text_read {
+font-size: 30px;
+}
+
+.text_label {
+font-size: 24px;
+}
+
+.text_source {
+font-size: 20px;
+}
+
+}

@@ -1,0 +1,146 @@
+/* STRUCTURE ------------------------------------- */
+#canvas {
+background-color: #000;
+}
+
+svg {
+margin: 0 auto;
+display: block;
+}
+
+
+/* COLOR GFX ------------------------------------- */
+
+
+
+
+/*
+.bar {
+  fill: #999;
+}
+
+path {
+  stroke: gray;
+}
+
+line {
+  stroke: gray;
+}
+
+line#limit {
+  stroke: #FED966;
+  stroke-width: 3;
+  stroke-dasharray: 3 6;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
+.grid .tick line {
+  stroke: #9FAAAE;
+  stroke-opacity: 0.3;
+}
+*/
+
+
+/* TYPO GFX ------------------------------------- */
+.gfx_scale_left {
+font-size: 16px;
+line-height: 1;
+font-weight: 400;
+}
+
+.gfx_scale_bottom {
+font-size: 16px;
+line-height: 1;
+font-weight: 400;
+}
+
+
+/* TYPO TEXT ------------------------------------- */
+.text_headline {
+font-size: 28px;
+line-height: 1;
+font-weight: 600;
+}
+
+.text_headline_sub {
+font-size: 28px;
+line-height: 1;
+font-weight: 400;
+}
+
+.text_read {
+font-size: 20px;
+line-height: 1;
+font-weight: 400;
+}
+
+.text_label {
+font-size: 20px;
+line-height: 1;
+font-weight: 600;
+}
+
+.text_source {
+font-size: 16px;
+line-height: 1;
+font-weight: 400;
+}
+
+
+/* MEDIA QUERIES --------------------------------- */
+@media screen and (max-width: 640px) {
+
+
+/* STRUCTURE ------------------------------------- */
+svg {
+width: 270px;
+height: 270px;
+}
+
+.layout_group {
+transform: scale(0.5);
+}
+
+.gfx_group {
+/*transform: translate(5px,5px) scale(0.5);*/
+transform: scale(0.5);
+}
+
+.text_group {
+transform: scale(0.5);
+}
+
+
+/* TYPO TEXT ------------------------------------- */
+.gfx_scale_left {
+font-size: 20px;
+}
+
+.gfx_scale_bottom {
+font-size: 20px;
+}
+
+.text_headline {
+font-size: 32px;
+}
+
+.text_headline {
+font-size: 32px;
+}
+
+.text_read {
+font-size: 30px;
+}
+
+.text_label {
+font-size: 24px;
+}
+
+.text_source {
+font-size: 20px;
+}
+
+}

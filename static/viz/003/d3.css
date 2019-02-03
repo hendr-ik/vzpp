@@ -1,0 +1,39 @@
+
+
+
+#canvas {
+background-color: #000;
+}
+
+.text_group {
+fill: #fff;
+font-size: 20px;
+line-height: 1;
+font-weight: 600;
+}
+
+svg {
+margin: 0 auto;
+display: block;
+background-color: #ddd;
+}
+
+
+
+@media screen and (max-width: 640px) {
+
+svg {
+width: 270px;
+height: 270px;
+}
+
+.gfx_group {
+transform: translate(5px,5px) scale(0.5);
+}
+
+.text_group {
+transform: translate(5px,5px) scale(0.5);
+font-size: 28px;
+}
+
+}
