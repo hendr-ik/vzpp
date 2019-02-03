@@ -175,29 +175,27 @@ gfx_layer_1_066.append("g")
 .attr("fill-opacity", .4)
 }
 
-
-gfx_layer_1_066.append("g")
-.selectAll("text")
+var g1_066 = gfx_layer_1_066.selectAll("value_display")
 .data(circleData)
 .enter()
-.append("text")
-.attr("class", "map_display")
+.append("g")
+.attr("class", "value_display");
+
+
+g1_066.append("text")
 .attr("x", function(d) { return d.cx; })
 .attr("y", function(d) { return d.cy; })
 .text(function(d) { return d.display })
 .style("fill", "#000");
 
 
-gfx_layer_1_066.append("g")
-.selectAll("text")
-.data(circleData)
-.enter()
-.append("text")
-.attr("class", "map_value")
+g1_066.append("text")
 .attr("x", function(d) { return d.cx; })
 .attr("y", function(d) { return 20 + d.cy; })
 .text(function(d) { return d.radius })
 .style("fill", "#000");
+
+
 
 
 
