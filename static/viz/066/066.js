@@ -39,8 +39,16 @@ color_text_source: "#e4cfbb"
 
 
 var circleData = [
-{ "cx": -200, "cy": 0, "radius": 121, "display": "USA"},
-{ "cx": 70, "cy": 70, "radius": 71, "display": "XYZ"}
+{ "cx": -180, "cy": -50, "radius": 121, "display": "USA"},
+{ "cx": 105, "cy": 34, "radius": 71, "display": "India"},
+{ "cx": -80, "cy": 60, "radius": 64, "display": "Brazil"},
+{ "cx": 180, "cy": 50, "radius": 59, "display": "Indonesia"},
+{ "cx": 37, "cy": -14, "radius": 37, "display": "Turkey"},
+{ "cx": 130, "cy": -70, "radius": 32, "display": "Russia"},
+{ "cx": 200, "cy": -12, "radius": 25, "display": "Japan"},
+{ "cx": 62, "cy": 0, "radius": 24, "display": "Iran"},
+{ "cx": -14, "cy": -38, "radius": 23, "display": "UK"},
+{ "cx": -158, "cy": 22, "radius": 22, "display": "Mexico"}
 ];
 
 
@@ -124,8 +132,8 @@ var projection = d3.geoVanDerGrinten3()
 // Data and color scale
 var data = d3.map();
 var colorScale = d3.scaleThreshold()
-.domain([21, 25, 59, 72, 121])
-.range(["#eadaca", "#ffc19c", "#ffa46f", "#ff8e4b", "#ff7625", "#da5404"]);
+.domain([21])
+.range(["#eedccb", "#d8c1ac"]);
 
 // Load external data and boot
 d3.queue()
@@ -170,7 +178,7 @@ gfx_layer_1_066.append("g")
 .append("circle")
 .attr("cx", function (d) { return d.cx; })
 .attr("cy", function (d) { return d.cy; })
-.attr("r", function (d) { return d.radius / 3; })
+.attr("r", function (d) { return d.radius / 2.8; })
 .style("fill", "#796dd5")
 .attr("fill-opacity", .4)
 }
@@ -182,7 +190,7 @@ gfx_layer_1_066.append("g")
 .enter()
 .append("text")
 .attr("class", "map_display")
-.attr("x", function(d) { return d.cx; })
+.attr("x", function(d) { return d.cx + d.radius / 2.8; })
 .attr("y", function(d) { return d.cy; })
 .text(function(d) { return d.display })
 .style("fill", "#000");
@@ -194,7 +202,7 @@ gfx_layer_1_066.append("g")
 .enter()
 .append("text")
 .attr("class", "map_value")
-.attr("x", function(d) { return d.cx; })
+.attr("x", function(d) { return d.cx + d.radius / 2.8; })
 .attr("y", function(d) { return 20 + d.cy; })
 .text(function(d) { return d.radius })
 .style("fill", "#000");

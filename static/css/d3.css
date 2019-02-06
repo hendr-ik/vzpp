@@ -64,6 +64,19 @@ order: 2;
 
 
 /* Typo */
+/* 066 */
+.map_display {
+font-size: var(--font-size_16);
+line-height: 1;
+font-weight: 600;
+}
+
+.map_value {
+font-size: var(--font-size_20);
+line-height: 1;
+font-weight: 400;
+}
+
 /* 065 */
 .pie_display_extra,
 .pie_display {
@@ -233,6 +246,15 @@ height: 270px;
 
 
 /* Typo */
+/* 066 */
+.map_display {
+font-size: var(--font-size_16_mobile);
+}
+
+.map_value {
+font-size: var(--font-size_20_mobile);
+}
+
 /* 065 */
 .pie_display_extra,
 .pie_display {
