@@ -29,12 +29,12 @@
 
 /* switch 066 */
 --switch_width_066: 250px;
---switch_width_066_mobile: 100px;
+--switch_width_066_mobile: 190px;
 --switch_height_066: 30px;
 --switch_height_066_mobile: 24px;
 
 --switch_label_width_066: 125px;
---switch_label_width_066_mobile: 50px;
+--switch_label_width_066_mobile: 95px;
 
 }
 /* Structure */
