@@ -40,13 +40,13 @@ color_text_source: "#e4cfbb"
 
 var circleData = [
 { "cx": -180, "cy": -50, "radius": 121, "display": "USA"},
-{ "cx": 105, "cy": 34, "radius": 71, "display": "India"},
+{ "cx": 112, "cy": 38, "radius": 71, "display": "India"},
 { "cx": -80, "cy": 60, "radius": 64, "display": "Brazil"},
 { "cx": 180, "cy": 50, "radius": 59, "display": "Indonesia"},
-{ "cx": 37, "cy": -14, "radius": 37, "display": "Turkey"},
+{ "cx": 30, "cy": -18, "radius": 37, "display": "Turkey"},
 { "cx": 130, "cy": -70, "radius": 32, "display": "Russia"},
-{ "cx": 200, "cy": -12, "radius": 25, "display": "Japan"},
-{ "cx": 62, "cy": 0, "radius": 24, "display": "Iran"},
+{ "cx": 208, "cy": -12, "radius": 25, "display": "Japan"},
+{ "cx": 66, "cy": 6, "radius": 24, "display": "Iran"},
 { "cx": -14, "cy": -38, "radius": 23, "display": "UK"},
 { "cx": -158, "cy": 22, "radius": 22, "display": "Mexico"}
 ];
@@ -170,8 +170,9 @@ return colorScale(d.total);
 
 
 
+
 // Add circles:
-gfx_layer_1_066.append("g")
+gfx_layer_0_066.append("g")
 .selectAll("circle")
 .data(circleData)
 .enter()
@@ -179,10 +180,9 @@ gfx_layer_1_066.append("g")
 .attr("cx", function (d) { return d.cx; })
 .attr("cy", function (d) { return d.cy; })
 .attr("r", function (d) { return d.radius / 2.8; })
-.style("fill", "#796dd5")
-.attr("fill-opacity", .4)
+.style("fill", "#a399e7")
+.attr("fill-opacity", .5)
 }
-
 
 gfx_layer_1_066.append("g")
 .selectAll("text")
@@ -190,10 +190,10 @@ gfx_layer_1_066.append("g")
 .enter()
 .append("text")
 .attr("class", "map_display")
-.attr("x", function(d) { return d.cx + d.radius / 2.8; })
-.attr("y", function(d) { return d.cy; })
+.attr("x", function(d) { return d.cx + d.radius / 30 })
+.attr("y", function(d) { return 10 + d.cy; })
 .text(function(d) { return d.display })
-.style("fill", "#000");
+.style("fill", "#2e2f33");
 
 
 gfx_layer_1_066.append("g")
@@ -202,10 +202,10 @@ gfx_layer_1_066.append("g")
 .enter()
 .append("text")
 .attr("class", "map_value")
-.attr("x", function(d) { return d.cx + d.radius / 2.8; })
-.attr("y", function(d) { return 20 + d.cy; })
+.attr("x", function(d) { return d.cx + d.radius / 30; })
+.attr("y", function(d) { return 28 + d.cy; })
 .text(function(d) { return d.radius })
-.style("fill", "#000");
+.style("fill", "#2e2f33");
 
 
 
