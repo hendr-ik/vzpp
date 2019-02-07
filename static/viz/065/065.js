@@ -263,19 +263,19 @@ var dataset = "temp";
 // ANIMATION ------------------------------------------------
 // ----------------------------------------------------------
 // On radio button click
-d3.selectAll("input")
-.on("change", change
+d3.selectAll("input[name='button_065']")
+.on("change", change_065
 );
 
-function change() {
+function change_065() {
 
 // change headline
 if (data_set_065.text_headline_switch == 0) {
-d3.select(".text_headline").text(data_set_065.text_headline_2);
+d3.selectAll("#canvas_065").select(".text_headline").text(data_set_065.text_headline_2);
 data_set_065.text_headline_switch = 1;
 }
 else {
-d3.select(".text_headline").text(data_set_065.text_headline_1);
+d3.selectAll("#canvas_065").select(".text_headline").text(data_set_065.text_headline_1);
 data_set_065.text_headline_switch = 0;
 }
 

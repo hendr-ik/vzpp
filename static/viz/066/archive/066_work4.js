@@ -9,29 +9,26 @@ container_height: 540,
 margin: 20,
 center_x: 250,
 center_y: 270,
-// ----------------------------------------------------------
 map_width: 540,
 map_height: 540,
 bar_width: 475,
-bar_height: 350,
+bar_height: 400,
+bar_height_2: 350,
+bar_fix: 50,
 // ----------------------------------------------------------
 position_headline: 25,
 position_source: 500,
 position_menu: 480,
 // ----------------------------------------------------------
 text_headline_1: "Instagram Users",
+text_headline_2: "Monthly Active Users 2013",
+text_headline_switch: 0,
 text_subheadline_1: "Top 10, 2018",
 text_subheadline_2: "MAU, In millions",
 text_subheadline_3: "MAU, In millions",
 text_source: "Source: Statista 2018, TechCrunch 2016",
 // ----------------------------------------------------------
 color_bg: "#f9f4ef",
-color_basic: "#a399e7",
-// map
-color_map_01: "#eedccb",
-color_map_02: "#d8c1ac",
-color_map_display: "#2e2f33",
-color_map_value: "#2e2f33",
 // bars
 color_layout_axis: "#a5a7af",
 color_layout_stroke: "#f2e8df",
@@ -40,20 +37,34 @@ color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
 };
 
-var data_input_066 = [
-{ "cx": -180, "cy": -50, "mau": 121, "display": "USA"},
-{ "cx": 112, "cy": 38, "mau": 71, "display": "India"},
-{ "cx": -80, "cy": 60, "mau": 64, "display": "Brazil"},
-{ "cx": 180, "cy": 50, "mau": 59, "display": "Indonesia"},
-{ "cx": 30, "cy": -18, "mau": 37, "display": "Turkey"},
-{ "cx": 130, "cy": -70, "mau": 32, "display": "Russia"},
-{ "cx": 208, "cy": -12, "mau": 25, "display": "Japan"},
-{ "cx": 66, "cy": 6, "mau": 24, "display": "Iran"},
-{ "cx": -14, "cy": -38, "mau": 23, "display": "UK"},
-{ "cx": -158, "cy": 22, "mau": 22, "display": "Mexico"}
+var circleData = [
+{ "cx": -180, "cy": -50, "radius": 121, "display": "USA"},
+{ "cx": 112, "cy": 38, "radius": 71, "display": "India"},
+{ "cx": -80, "cy": 60, "radius": 64, "display": "Brazil"},
+{ "cx": 180, "cy": 50, "radius": 59, "display": "Indonesia"},
+{ "cx": 30, "cy": -18, "radius": 37, "display": "Turkey"},
+{ "cx": 130, "cy": -70, "radius": 32, "display": "Russia"},
+{ "cx": 208, "cy": -12, "radius": 25, "display": "Japan"},
+{ "cx": 66, "cy": 6, "radius": 24, "display": "Iran"},
+{ "cx": -14, "cy": -38, "radius": 23, "display": "UK"},
+{ "cx": -158, "cy": 22, "radius": 22, "display": "Mexico"}
 ];
 
 
+/*
+var barData = [
+{ "cx": -180, "cy": -50, "radius": 121, "display": "USA"},
+{ "cx": 112, "cy": 38, "radius": 71, "display": "India"},
+{ "cx": -80, "cy": 60, "radius": 64, "display": "Brazil"},
+{ "cx": 180, "cy": 50, "radius": 59, "display": "Indonesia"},
+{ "cx": 30, "cy": -18, "radius": 37, "display": "Turkey"},
+{ "cx": 130, "cy": -70, "radius": 32, "display": "Russia"},
+{ "cx": 208, "cy": -12, "radius": 25, "display": "Japan"},
+{ "cx": 66, "cy": 6, "radius": 24, "display": "Iran"},
+{ "cx": -14, "cy": -38, "radius": 23, "display": "UK"},
+{ "cx": -158, "cy": 22, "radius": 22, "display": "Mexico"}
+];
+*/
 
 
 // ----------------------------------------------------------
@@ -89,17 +100,12 @@ var gfx_group_066 = container_margin_066.append("g")
 var gfx_layer_0_066 = gfx_group_066.append("g")
 .attr("class", "gfx_layer_0");
 var gfx_layer_1_066 = gfx_group_066.append("g")
-.attr("transform", "translate(0,-10)")
 .attr("class", "gfx_layer_1");
 var gfx_layer_2_066 = gfx_group_066.append("g")
-.attr("transform", "translate(0,-10)")
 .attr("class", "gfx_layer_2");
 var gfx_layer_3_066 = gfx_group_066.append("g")
-.attr("transform", "translate(-214,-195)")
+.attr("transform", "translate(-214,-190)")
 .attr("class", "gfx_layer_3");
-var gfx_layer_4_066 = gfx_group_066.append("g")
-.attr("transform", "translate(-214,-195)")
-.attr("class", "gfx_layer_4");
 // ----------------------------------------------------------
 // create group for text
 var text_group_066 = container_margin_066.append("g")
@@ -136,27 +142,25 @@ layout_group_066.append("rect")
 // ----------------------------------------------------------
 
 // LAYER 0 --------------------------------------------------
-// Map
-// projection
-var path_map_066 = d3.geoPath();
-var projection_map_066 = d3.geoVanDerGrinten3()
+// Create map
+// Map and projection
+var path = d3.geoPath();
+var projection = d3.geoVanDerGrinten3()
 .scale(90)
 .center([0,0])
-.translate([-10, 40]);
+.translate([-10,50]);
 // Data and color scale
-var data_map_066 = d3.map();
-var colorScale_map_066 = d3.scaleThreshold()
+var data = d3.map();
+var colorScale = d3.scaleThreshold()
 .domain([21])
-.range([data_set_066.color_map_01, data_set_066.color_map_02]);
+.range(["#eedccb", "#d8c1ac"]);
 // Load external data and boot
 d3.queue()
-//.defer(d3.json, "http://niefeld.com/static/viz/066/map_world.geojson")
-//.defer(d3.csv, "http://niefeld.com/static/viz/066/map.csv", function(d) { data_map_066.set(d.code, +d.mau); })
-.defer(d3.json, "/static/viz/066/map_world.geojson")
-.defer(d3.csv, "/static/viz/066/map.csv", function(d) { data_map_066.set(d.code, +d.mau); })
-.await(ready_map_066);
+.defer(d3.json, "static/viz/066/world.geojson")
+.defer(d3.csv, "static/viz/066/world_population.csv", function(d) { data.set(d.code, +d.pop); })
+.await(ready);
 // Draw function
-function ready_map_066(error, topo) {
+function ready(error, topo) {
 // Draw the map
 gfx_layer_0_066.append("g")
 .selectAll("path")
@@ -165,72 +169,81 @@ gfx_layer_0_066.append("g")
 .append("path")
 // draw each country
 .attr("d", d3.geoPath()
-.projection(projection_map_066)
+.projection(projection)
 )
 // set stroke
 .style("stroke", "#f9f4ef")
 // set the color of each country
 .attr("fill", function (d) {
-d.total = data_map_066.get(d.id) || 0;
-return colorScale_map_066(d.total);
+d.total = data.get(d.id) || 0;
+return colorScale(d.total);
 });
 
 // LAYER 1 --------------------------------------------------
-// Map
 // Add circles
 gfx_layer_1_066.append("g")
 .selectAll("circle")
-.data(data_input_066)
+.data(circleData)
 .enter()
 .append("circle")
 .attr("cx", function (d) { return d.cx; })
 .attr("cy", function (d) { return d.cy; })
-.attr("r", function (d) { return d.mau / 2.8; })
-.style("fill", data_set_066.color_basic)
+.attr("r", function (d) { return d.radius / 2.8; })
+.style("fill", "#a399e7")
 .attr("fill-opacity", .5)
 }
 
 // LAYER 2 --------------------------------------------------
-// Map
 // Add display
 gfx_layer_2_066.append("g")
 .selectAll("text")
-.data(data_input_066)
+.data(circleData)
 .enter()
 .append("text")
 .attr("class", "map_display")
-.attr("x", function(d) { return d.cx + d.mau / 30 })
+.attr("x", function(d) { return d.cx + d.radius / 30 })
 .attr("y", function(d) { return 10 + d.cy; })
 .text(function(d) { return d.display })
-.style("fill", data_set_066.color_map_display);
+.style("fill", "#2e2f33");
 // Add value
 gfx_layer_2_066.append("g")
 .selectAll("text")
-.data(data_input_066)
+.data(circleData)
 .enter()
 .append("text")
 .attr("class", "map_value")
-.attr("x", function(d) { return d.cx + d.mau / 30; })
+.attr("x", function(d) { return d.cx + d.radius / 30; })
 .attr("y", function(d) { return 28 + d.cy; })
-.text(function(d) { return d.mau })
-.style("fill", data_set_066.color_map_value);
+.text(function(d) { return d.radius })
+.style("fill", "#2e2f33");
+
+
+
+
+
+
+
+
+
+
 
 // LAYER 3 --------------------------------------------------
-// Bars
+
 // Parse the Data
-//d3.csv("http://niefeld.com/static/viz/066/bars.csv", function(data_bars_066) {
-d3.csv("/static/viz/066/bars.csv", function(data_bars_066) {
+d3.csv("static/viz/066/bars_data.csv", function(data) {
+
 // SCALE X axis
 var xScale_066 = d3.scaleBand()
 .range([ 0, data_set_066.bar_width ])
-.domain(data_bars_066.map(function(d) { return d.time; }))
-.padding(.4);
+.domain(data.map(function(d) { return d.Country; }))
+.padding(.4)
+;
 // Y axis
 var xAxis_066 = d3.axisBottom(xScale_066)
 // append custom axis
 gfx_layer_3_066.append("g")
 .attr("class", "x_axis")
-.attr("transform", "translate(0," + data_set_066.bar_height + ")")
+.attr("transform", "translate(0," + data_set_066.bar_height_2 + ")")
 .call(customXAxis_066);
 // change axis design
 function customXAxis_066(g) {
@@ -245,7 +258,8 @@ g.selectAll("text").attr("transform", "translate(-10,0)rotate(-45)")
 // SCALE Y axis
 var yScale_066 = d3.scaleLinear()
 .domain([0, 1000])
-.range([ data_set_066.bar_height, 0]);
+.range([ data_set_066.bar_height - data_set_066.bar_fix, 0])
+;
 // Y axis
 var yAxis_066 = d3.axisRight(yScale_066)
 .tickSize(data_set_066.bar_width - 12)
@@ -265,20 +279,39 @@ g.selectAll(".tick text").attr("text-anchor", "end").attr("x", -6).attr("dy", -2
 .style("fill", data_set_066.color_layout_axis);
 }
 
-// LAYER 4 --------------------------------------------------
 // Bars
-gfx_layer_4_066.selectAll()
-.data(data_bars_066)
+gfx_layer_3_066.selectAll("mybar")
+.data(data)
 .enter()
 .append("rect")
-.attr("x", function(d) { return xScale_066(d.time); })
+.attr("x", function(d) { return xScale_066(d.Country); })
 .attr("width", xScale_066.bandwidth())
-.attr("fill", data_set_066.color_basic)
+.attr("fill", "#a399e7")
 .attr("fill-opacity", .5)
-.attr("y", function(d) { return yScale_066(d.mau); })
-.attr("height", function(d) { return data_set_066.bar_height - yScale_066(d.mau); })
+// no bar at the beginning thus:
+.attr("height", function(d) { return data_set_066.bar_height - data_set_066.bar_fix }) // always equal to 0
+.attr("y", function(d) { return yScale_066(0); })
+
+
+// Animation
+gfx_layer_3_066.selectAll("rect")
+.transition()
+.duration(800)
+.attr("y", function(d) { return yScale_066(d.Value); })
+.attr("height", function(d) { return data_set_066.bar_height - data_set_066.bar_fix - yScale_066(d.Value); })
+
 // close data parse
 })
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -286,40 +319,46 @@ gfx_layer_4_066.selectAll()
 // ----------------------------------------------------------
 // ANIMATION ------------------------------------------------
 // ----------------------------------------------------------
+
+/*
 // set up switch variable and layer transparencys
 var switch_066 = true;
 d3.select(".gfx_layer_0").attr("opacity", 1);
 d3.select(".gfx_layer_1").attr("opacity", 1);
 d3.select(".gfx_layer_2").attr("opacity", 1);
 d3.select(".gfx_layer_3").attr("opacity", 0);
-d3.select(".gfx_layer_4").attr("opacity", 0);
 //
 d3.select(".text_subheadline_1").attr("opacity", 1);
 d3.select(".text_subheadline_2").attr("opacity", 1);
+*/
+d3.select(".gfx_layer_0").attr("opacity", 0);
+d3.select(".gfx_layer_1").attr("opacity", 0);
+d3.select(".gfx_layer_2").attr("opacity", 0);
+d3.select(".gfx_layer_3").attr("opacity", 1);
+
 
 // On radio button click
-d3.selectAll("input[name='button_066']")
-.on("change", change_066
+d3.selectAll("input")
+.on("change", change
 );
-function change_066() {
+function change() {
 if (switch_066 == false) {
 d3.select(".gfx_layer_3").transition().duration(200).attr("opacity", 0);
-d3.select(".gfx_layer_4").transition().duration(200).attr("opacity", 0);
 //
 d3.select(".text_subheadline_1").transition().duration(300).attr("opacity", 1);
 d3.select(".gfx_layer_0").transition().duration(300).attr("opacity", 1);
-d3.select(".gfx_layer_1").transition().delay(100).duration(300).attr("opacity", 1);
-d3.select(".gfx_layer_2").transition().delay(150).duration(300).attr("opacity", 1);
+d3.select(".gfx_layer_1").transition().delay(150).duration(300).attr("opacity", 1);
+d3.select(".gfx_layer_2").transition().delay(250).duration(300).attr("opacity", 1);
+
 switch_066 = true;
 }
 else {
 d3.select(".text_subheadline_1").transition().duration(200).attr("opacity", 0);
 d3.select(".gfx_layer_2").transition().duration(200).attr("opacity", 0);
 d3.select(".gfx_layer_1").transition().duration(200).attr("opacity", 0);
-d3.select(".gfx_layer_0").transition().duration(200).attr("opacity", 0);
+d3.select(".gfx_layer_0").transition().delay(50).duration(200).attr("opacity", 0);
 //
 d3.select(".gfx_layer_3").transition().duration(300).attr("opacity", 1);
-d3.select(".gfx_layer_4").transition().delay(150).duration(300).attr("opacity", 1);
 switch_066 = false;
 }
 }
@@ -330,6 +369,7 @@ switch_066 = false;
 // ----------------------------------------------------------
 // TEXT -----------------------------------------------------
 // ----------------------------------------------------------
+
 // create text "headline"
 var text_headline_066 = text_group_066.append("text")
 .attr("class", "text_headline")

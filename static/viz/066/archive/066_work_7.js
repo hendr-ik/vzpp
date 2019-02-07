@@ -150,10 +150,8 @@ var colorScale_map_066 = d3.scaleThreshold()
 .range([data_set_066.color_map_01, data_set_066.color_map_02]);
 // Load external data and boot
 d3.queue()
-//.defer(d3.json, "http://niefeld.com/static/viz/066/map_world.geojson")
-//.defer(d3.csv, "http://niefeld.com/static/viz/066/map.csv", function(d) { data_map_066.set(d.code, +d.mau); })
-.defer(d3.json, "/static/viz/066/map_world.geojson")
-.defer(d3.csv, "/static/viz/066/map.csv", function(d) { data_map_066.set(d.code, +d.mau); })
+.defer(d3.json, "static/viz/066/map_world.geojson")
+.defer(d3.csv, "static/viz/066/map.csv", function(d) { data_map_066.set(d.code, +d.mau); })
 .await(ready_map_066);
 // Draw function
 function ready_map_066(error, topo) {
@@ -218,8 +216,7 @@ gfx_layer_2_066.append("g")
 // LAYER 3 --------------------------------------------------
 // Bars
 // Parse the Data
-//d3.csv("http://niefeld.com/static/viz/066/bars.csv", function(data_bars_066) {
-d3.csv("/static/viz/066/bars.csv", function(data_bars_066) {
+d3.csv("static/viz/066/bars.csv", function(data_bars_066) {
 // SCALE X axis
 var xScale_066 = d3.scaleBand()
 .range([ 0, data_set_066.bar_width ])
@@ -298,10 +295,10 @@ d3.select(".text_subheadline_1").attr("opacity", 1);
 d3.select(".text_subheadline_2").attr("opacity", 1);
 
 // On radio button click
-d3.selectAll("input[name='button_066']")
-.on("change", change_066
+d3.selectAll("input")
+.on("change", change
 );
-function change_066() {
+function change() {
 if (switch_066 == false) {
 d3.select(".gfx_layer_3").transition().duration(200).attr("opacity", 0);
 d3.select(".gfx_layer_4").transition().duration(200).attr("opacity", 0);

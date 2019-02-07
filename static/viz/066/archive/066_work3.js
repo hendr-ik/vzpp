@@ -229,7 +229,7 @@ gfx_layer_2_066.append("g")
 
 
 // LAYER 3 --------------------------------------------------
-
+// Create bars
 // Parse the Data
 d3.csv("static/viz/066/bars_data.csv", function(data) {
 
@@ -273,8 +273,10 @@ gfx_layer_3_066.selectAll("mybar")
 
 // Animation
 gfx_layer_3_066.selectAll("rect")
-  .attr("y", function(d) { return y(d.Value); })
-  .attr("height", function(d) { return data_set_066.bar_height - data_set_066.bar_fix - y(d.Value); })
+.attr("y", function(d) { return y(d.Value); })
+.attr("height", function(d) { return data_set_066.bar_height - data_set_066.bar_fix - y(d.Value); })
+
+// close data parse
 })
 
 
