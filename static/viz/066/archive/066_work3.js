@@ -29,9 +29,10 @@ text_subheadline_3: "MAU, In millions",
 text_source: "Source: Statista 2018, TechCrunch 2016",
 // ----------------------------------------------------------
 color_bg: "#f9f4ef",
+color_layout_stroke: "#f2e8df",
 // bars
 color_layout_axis: "#a5a7af",
-color_layout_stroke: "#f2e8df",
+color_layout_stroke: "#f2e8df", // layout lines
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -232,31 +233,13 @@ gfx_layer_2_066.append("g")
 // Parse the Data
 d3.csv("static/viz/066/bars_data.csv", function(data) {
 
-// SCALE X axis
-var xScale_066 = d3.scaleBand()
+// X axis
+var x = d3.scaleBand()
 .range([ 0, data_set_066.bar_width ])
 .domain(data.map(function(d) { return d.Country; }))
 .padding(0.2)
 ;
 
-// X create custom axis number format
-var xAxis_066 = d3.axisBottom(xScale_066)
-// append custom axis
-gfx_layer_3_066.append("g")
-.attr("class", "x_axis")
-.attr("transform", "translate(0," + data_set_066.bar_height_2 + ")")
-.call(customXAxis_066);
-// change axis design
-function customXAxis_066(g) {
-g.call(xAxis_066);
-g.select(".domain").remove();
-g.selectAll(".tick line").attr("stroke", data_set_066.color_layout_axis)
-g.selectAll(".tick text").style("fill", data_set_066.color_layout_axis)
-g.selectAll("text").attr("transform", "translate(-10,0)rotate(-45)")
-.style("text-anchor", "end").attr("fill", data_set_066.color_layout_axis);
-}
-
-/*
 // values bottom
 gfx_layer_3_066.append("g")
 .attr("transform", "translate(0," + data_set_066.bar_height_2 + ")")
@@ -266,90 +249,32 @@ gfx_layer_3_066.append("g")
 .style("text-anchor", "end")
 .attr("fill", data_set_066.color_layout_axis)
 ;
-*/
 
-
-// SCALE Y axis
-var yScale_066 = d3.scaleLinear()
+// Add Y axis
+var y = d3.scaleLinear()
 .domain([0, 1000])
 .range([ data_set_066.bar_height - data_set_066.bar_fix, 0]);
-//gfx_layer_3_066.append("g")
-//.call(d3.axisLeft(yScale_066))
-;
-
-
-
-
-// Y
-// create custom axis number format
-var yAxis_066 = d3.axisRight(yScale_066)
-.tickSize(500)
-/*
-.ticks(5)
-.tickSize(width_064 - data_set_064.padding_right)
-.tickFormat(function(d) {
-var s_064 = formatNumber_064(d / 1e6);
-return this.parentNode.nextSibling
-? s_064
-: s_064 + " M";
-})
-*/
-;
-
-// append custom axis
 gfx_layer_3_066.append("g")
-.attr("class", "y_axis")
-.call(customYAxis_066);
-// change axis design
-function customYAxis_066(g) {
-g.call(yAxis_066);
-g.select(".domain").remove();
-/*
-g.selectAll(".tick:not(:first-of-type) line").attr("stroke", data_set_066.color_layout_axis)
-.attr("stroke-dasharray", "3,3").style("stroke-width", 1);
-g.selectAll(".tick:first-of-type line").attr("stroke", data_set_066.color_layout_axis);
-*/
-g.selectAll(".tick text").attr("text-anchor", "end").attr("x", -4).attr("dy", -10)
-.style("fill", data_set_066.color_layout_axis);
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.call(d3.axisLeft(y))
+;
 
 // Bars
 gfx_layer_3_066.selectAll("mybar")
 .data(data)
 .enter()
 .append("rect")
-.attr("x", function(d) { return xScale_066(d.Country); })
-.attr("width", xScale_066.bandwidth())
+.attr("x", function(d) { return x(d.Country); })
+.attr("width", x.bandwidth())
 .attr("fill", "#69b3a2")
 // no bar at the beginning thus:
 .attr("height", function(d) { return data_set_066.bar_height - data_set_066.bar_fix }) // always equal to 0
-.attr("y", function(d) { return yScale_066(0); })
+.attr("y", function(d) { return y(0); })
 
 
 // Animation
 gfx_layer_3_066.selectAll("rect")
-  .attr("y", function(d) { return yScale_066(d.Value); })
-  .attr("height", function(d) { return data_set_066.bar_height - data_set_066.bar_fix - yScale_066(d.Value); })
+  .attr("y", function(d) { return y(d.Value); })
+  .attr("height", function(d) { return data_set_066.bar_height - data_set_066.bar_fix - y(d.Value); })
 })
 
 
