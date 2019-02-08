@@ -14,30 +14,29 @@
 --font-size_12: 12px;
 --font-size_12_mobile: 16px;
 
---switch_font-size: 18px;
---switch_font-size_mobile: 12px;
 
-/* switch A - 140 px */
---switch_width_A: 140px;
---switch_width_A_mobile: 100px;
---switch_height_A: 30px;
---switch_height_A_mobile: 24px;
+--switch_font-size: 20px;
+--switch_font-size_mobile: 16px;
 
---switch_label_width_A: 70px;
---switch_label_width_A_mobile: 50px;
+/* switch 065 */
+--switch_width_065: 140px;
+--switch_width_065_mobile: 100px;
+--switch_height_065: 30px;
+--switch_height_065_mobile: 24px;
 
-/* switch B - 250px */
---switch_width_B: 250px;
---switch_width_B_mobile: 190px;
---switch_height_B: 30px;
---switch_height_B_mobile: 24px;
+--switch_label_width_065: 70px;
+--switch_label_width_065_mobile: 50px;
 
---switch_label_width_B: 125px;
---switch_label_width_B_mobile: 95px;
+/* switch 066 */
+--switch_width_066: 250px;
+--switch_width_066_mobile: 190px;
+--switch_height_066: 30px;
+--switch_height_066_mobile: 24px;
+
+--switch_label_width_066: 125px;
+--switch_label_width_066_mobile: 95px;
 
 }
-
-
 /* Structure */
 .d3_container {
 background-color: #f9f4ef;
@@ -58,7 +57,7 @@ flex-flow: column;
 align-items: center;
 }
 
-#canvas_066,
+#canvas_066, /* is this still needed ? */
 #canvas_065,
 #canvas_064,
 #canvas_063 {
@@ -70,6 +69,8 @@ height: 540px;
 .spacer_right {
 order: 2;
 }
+
+
 
 
 /* Typo */
@@ -158,35 +159,37 @@ font-weight: 400;
 }
 
 
-/* Switch B*/
-.switch_container_B {
+
+
+/* Switch 065*/
+.switch_container_065 {
 order: 1;
 margin: 10px 0 30px 0;
-width: var(--switch_width_B);
-height: var(--switch_height_B);
+width: var(--switch_width_065);
+height: var(--switch_height_065);
 background: #5ad0b2;
 overflow: hidden;
 font-size: 0;
 border-radius: 4px;
 }
 
-.switch_button_B {
+.switch_button_065 {
 position: absolute;
 left: -999px;
 visibility: hidden;
 &:checked + label { color: #fff; }
 }
 
-.switch_label_B {
+.switch_label_065 {
 position: relative;
 display: inline-block;
 vertical-align: middle;
-width: var(--switch_label_width_B);
-height: var(--switch_height_B);
+width: var(--switch_label_width_065);
+height: var(--switch_height_065);
 color: #fff;
 font-size: var(--switch_font-size);
 font-weight: 600;
-line-height: var(--switch_height_B);
+line-height: var(--switch_height_065);
 text-align: center;
 z-index: 1;
 cursor: pointer;
@@ -194,101 +197,101 @@ user-select: none;
 -webkit-tap-highlight-color: transparent;
 }
 
-#first_B + label:before {
+#setB_065 + label:before {
 content: "";
 position: absolute;
 top: 0;
-left: var(--switch_label_width_B);
-width: var(--switch_label_width_B);
+left: var(--switch_label_width_065);
+width: var(--switch_label_width_065);
 height: 100%;
 z-index: -1;
 transition: all 0.3s ease;
 background-color: #19ab86;
 }
 
-#first_B:checked + label:before {
+#setB_065:checked + label:before {
 left: 0;
-width: var(--switch_label_width_B);
+width: var(--switch_label_width_065);
 background-color: #19ab86;
 }
 
-#first_B + label {
-width: var(--switch_label_width_B);
+#setB_065 + label {
+width: var(--switch_label_width_065);
 }
 
-#second_B + label {
-width: var(--switch_label_width_B);
+#setA_065 + label {
+width: var(--switch_label_width_065);
 }
 
-
-/* Switch A*/
-.switch_container_A {
-order: 1;
-margin: 10px 0 30px 0;
-width: var(--switch_width_A);
-height: var(--switch_height_A);
-background: #5ad0b2;
-overflow: hidden;
-font-size: 0;
-border-radius: 4px;
-}
-
-.switch_button_A {
-position: absolute;
-left: -999px;
-visibility: hidden;
-&:checked + label { color: #fff; }
-}
-
-.switch_label_A {
-position: relative;
-display: inline-block;
-vertical-align: middle;
-width: var(--switch_label_width_A);
-height: var(--switch_height_A);
-color: #fff;
-font-size: var(--switch_font-size);
-font-weight: 600;
-line-height: var(--switch_height_A);
-text-align: center;
-z-index: 1;
-cursor: pointer;
-user-select: none;
--webkit-tap-highlight-color: transparent;
-}
-
-#first_A + label:before {
-content: "";
-position: absolute;
-top: 0;
-left: var(--switch_label_width_A);
-width: var(--switch_label_width_A);
-height: 100%;
-z-index: -1;
-transition: all 0.3s ease;
-background-color: #19ab86;
-}
-
-#first_A:checked + label:before {
-left: 0;
-width: var(--switch_label_width_A);
-background-color: #19ab86;
-}
-
-#first_A + label {
-width: var(--switch_label_width_A);
-}
-
-#second_A + label {
-width: var(--switch_label_width_A);
-}
-
-
-/* Switch all*/
 input[type="radio"]:checked + label {
 color: #2e2f33;
 }
 
+/* Switch 066*/
+.switch_container_066 {
+order: 1;
+margin: 10px 0 30px 0;
+width: var(--switch_width_066);
+height: var(--switch_height_066);
+background: #5ad0b2;
+overflow: hidden;
+font-size: 0;
+border-radius: 4px;
+}
+
+.switch_button_066 {
+position: absolute;
+left: -999px;
+visibility: hidden;
+&:checked + label { color: #fff; }
+}
+
+.switch_label_066 {
+position: relative;
+display: inline-block;
+vertical-align: middle;
+width: var(--switch_label_width_066);
+height: var(--switch_height_066);
+color: #fff;
+font-size: var(--switch_font-size);
+font-weight: 600;
+line-height: var(--switch_height_066);
+text-align: center;
+z-index: 1;
+cursor: pointer;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+}
+
+#setB_066 + label:before {
+content: "";
+position: absolute;
+top: 0;
+left: var(--switch_label_width_066);
+width: var(--switch_label_width_066);
+height: 100%;
+z-index: -1;
+transition: all 0.3s ease;
+background-color: #19ab86;
+}
+
+#setB_066:checked + label:before {
+left: 0;
+width: var(--switch_label_width_066);
+background-color: #19ab86;
+}
+
+#setB_066 + label {
+width: var(--switch_label_width_066);
+}
+
+#setA_066 + label {
+width: var(--switch_label_width_066);
+}
+
+input[type="radio"]:checked + label {
+color: #2e2f33;
+}
 
 
 
@@ -383,69 +386,68 @@ font-size: var(--font-size_12_mobile);
 }
 
 
-/* Switch B*/
-.switch_container_B {
+/* Switch 065*/
+.switch_container_065 {
 margin: 10px 0 20px 0;
-width: var(--switch_width_B_mobile);
-height: var(--switch_height_B_mobile);
+width: var(--switch_width_065_mobile);
+height: var(--switch_height_065_mobile);
 }
 
-.switch_label_B {
-width: var(--switch_label_width_B_mobile);
-height: var(--switch_height_B_mobile);
+.switch_label_065 {
+width: var(--switch_label_width_065_mobile);
+height: var(--switch_height_065_mobile);
 font-size: var(--switch_font-size_mobile);
-line-height: var(--switch_height_B_mobile);
+line-height: var(--switch_height_065_mobile);
 
 }
 
-#first_B + label:before {
-left: var(--switch_label_width_B_mobile);
-width: var(--switch_label_width_B_mobile);
+#setB_065 + label:before {
+left: var(--switch_label_width_065_mobile);
+width: var(--switch_label_width_065_mobile);
 }
 
-#first_B:checked + label:before {
-width: var(--switch_label_width_B_mobile);
+#setB_065:checked + label:before {
+width: var(--switch_label_width_065_mobile);
 }
 
-#first_B + label {
-width: var(--switch_label_width_B_mobile);
+#setB_065 + label {
+width: var(--switch_label_width_065_mobile);
 }
 
-#second_B + label {
-width: var(--switch_label_width_B_mobile);
+#setA_065 + label {
+width: var(--switch_label_width_065_mobile);
 }
 
-
-/* Switch A*/
-.switch_container_A {
+/* Switch 066*/
+.switch_container_066 {
 margin: 10px 0 20px 0;
-width: var(--switch_width_A_mobile);
-height: var(--switch_height_A_mobile);
+width: var(--switch_width_066_mobile);
+height: var(--switch_height_066_mobile);
 }
 
-.switch_label_A {
-width: var(--switch_label_width_A_mobile);
-height: var(--switch_height_A_mobile);
+.switch_label_066 {
+width: var(--switch_label_width_066_mobile);
+height: var(--switch_height_066_mobile);
 font-size: var(--switch_font-size_mobile);
-line-height: var(--switch_height_A_mobile);
+line-height: var(--switch_height_066_mobile);
 
 }
 
-#first_A + label:before {
-left: var(--switch_label_width_A_mobile);
-width: var(--switch_label_width_A_mobile);
+#setB_066 + label:before {
+left: var(--switch_label_width_066_mobile);
+width: var(--switch_label_width_066_mobile);
 }
 
-#first_A:checked + label:before {
-width: var(--switch_label_width_A_mobile);
+#setB_066:checked + label:before {
+width: var(--switch_label_width_066_mobile);
 }
 
-#first_A + label {
-width: var(--switch_label_width_A_mobile);
+#setB_066 + label {
+width: var(--switch_label_width_066_mobile);
 }
 
-#second_A + label {
-width: var(--switch_label_width_A_mobile);
+#setA_066 + label {
+width: var(--switch_label_width_066_mobile);
 }
 
 }

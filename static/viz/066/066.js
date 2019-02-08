@@ -13,7 +13,7 @@ center_y: 270,
 map_width: 540,
 map_height: 540,
 bar_width: 475,
-bar_height: 350,
+bar_height: 300,
 // ----------------------------------------------------------
 position_headline: 25,
 position_source: 500,
@@ -30,14 +30,14 @@ color_basic: "#a399e7",
 // map
 color_map_01: "#eedccb",
 color_map_02: "#d8c1ac",
-color_map_circle_marker: "#261697",
+color_map_circle_marker: "#ff8e4b",
 color_map_display: "#2e2f33",
 color_map_value: "#2e2f33",
 // bars
 color_bars_layout_axis: "#a5a7af",
 color_bars_layout_stroke: "#f2e8df",
 color_bars_layout_axis_marker: "#2e2f33",
-color_bars_marker: "#261697",
+color_bars_marker: "#ff8e4b",
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -98,10 +98,10 @@ var gfx_layer_2_066 = gfx_group_066.append("g")
 .attr("transform", "translate(0,-10)")
 .attr("class", "gfx_layer_2");
 var gfx_layer_3_066 = gfx_group_066.append("g")
-.attr("transform", "translate(-214,-195)")
+.attr("transform", "translate(-214,-170)")
 .attr("class", "gfx_layer_3");
 var gfx_layer_4_066 = gfx_group_066.append("g")
-.attr("transform", "translate(-214,-195)")
+.attr("transform", "translate(-214,-170)")
 .attr("class", "gfx_layer_4");
 // ----------------------------------------------------------
 // create group for text
@@ -191,14 +191,13 @@ gfx_layer_1_066.append("g")
 .attr("r", function (d) { return d.mau / 2.8; })
 .style("fill", data_set_066.color_basic)
 .attr("fill-opacity", .5)
-
 // highlight stuff
 .attr("class", function(d,i){
 if(data_input_066[i].mau == 23){ return "circle_marker"}
 else if(data_input_066[i].mau == 25){ return "circle_marker"}
 else if(data_input_066[i].mau == 121){ return "circle_marker"}
 })
-gfx_layer_1_066.selectAll(".circle_marker").attr("fill", data_set_066.color_map_circle_marker)
+gfx_layer_1_066.selectAll(".circle_marker").style("fill", data_set_066.color_map_circle_marker)
 
 // close data parse
 }
@@ -300,7 +299,7 @@ gfx_layer_4_066.selectAll()
 .attr("x", function(d) { return xScale_066(d.time); })
 .attr("width", xScale_066.bandwidth())
 .attr("fill", data_set_066.color_basic)
-.attr("fill-opacity", .5)
+.attr("fill-opacity", .6)
 .attr("y", function(d) { return yScale_066(d.mau); })
 .attr("height", function(d) { return data_set_066.bar_height - yScale_066(d.mau); })
 // highlight stuff
@@ -337,9 +336,10 @@ d3.select(".text_subheadline_1").attr("opacity", 1);
 d3.select(".text_subheadline_2").attr("opacity", 1);
 
 // On radio button click
-d3.selectAll("input[name='button_066']")
+d3.selectAll("input[name='button_B']")
 .on("change", change_066
 );
+
 function change_066() {
 if (switch_066 == false) {
 d3.select(".gfx_layer_3").transition().duration(200).attr("opacity", 0);
