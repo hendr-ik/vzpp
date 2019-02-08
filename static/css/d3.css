@@ -87,6 +87,10 @@ line-height: 1;
 font-weight: 600;
 }
 
+.tick_marker {
+font-weight: 600;
+}
+
 /* 065 */
 .pie_display_extra,
 .pie_display {

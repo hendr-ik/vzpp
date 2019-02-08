@@ -30,11 +30,14 @@ color_basic: "#a399e7",
 // map
 color_map_01: "#eedccb",
 color_map_02: "#d8c1ac",
+color_map_circle_marker: "#261697",
 color_map_display: "#2e2f33",
 color_map_value: "#2e2f33",
 // bars
-color_layout_axis: "#a5a7af",
-color_layout_stroke: "#f2e8df",
+color_bars_layout_axis: "#a5a7af",
+color_bars_layout_stroke: "#f2e8df",
+color_bars_layout_axis_marker: "#2e2f33",
+color_bars_marker: "#261697",
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -118,7 +121,7 @@ layout_group_066.append("rect")
 .attr("y", data_set_066.position_headline + 35)
 .attr("height", 2)
 .attr("width", 500)
-.style("fill", data_set_066.color_layout_stroke);
+.style("fill", data_set_066.color_bars_layout_stroke);
 
 layout_group_066.append("rect")
 .attr("class", "gfx_bar_stroke")
@@ -126,7 +129,7 @@ layout_group_066.append("rect")
 .attr("y", data_set_066.position_source + 30)
 .attr("height", 2)
 .attr("width", 500)
-.style("fill", data_set_066.color_layout_stroke);
+.style("fill", data_set_066.color_bars_layout_stroke);
 
 
 
@@ -188,7 +191,21 @@ gfx_layer_1_066.append("g")
 .attr("r", function (d) { return d.mau / 2.8; })
 .style("fill", data_set_066.color_basic)
 .attr("fill-opacity", .5)
+
+// highlight stuff
+.attr("class", function(d,i){
+if(data_input_066[i].mau == 23){ return "circle_marker"}
+else if(data_input_066[i].mau == 25){ return "circle_marker"}
+else if(data_input_066[i].mau == 121){ return "circle_marker"}
+})
+gfx_layer_1_066.selectAll(".circle_marker").attr("fill", data_set_066.color_map_circle_marker)
+
+// close data parse
 }
+
+
+
+
 
 // LAYER 2 --------------------------------------------------
 // Map
@@ -236,11 +253,20 @@ gfx_layer_3_066.append("g")
 function customXAxis_066(g) {
 g.call(xAxis_066);
 g.select(".domain").remove();
-g.selectAll(".tick line").attr("stroke", data_set_066.color_layout_axis)
-g.selectAll(".tick text").style("fill", data_set_066.color_layout_axis)
+g.selectAll(".tick line").attr("stroke", data_set_066.color_bars_layout_axis)
 g.selectAll("text").attr("transform", "translate(-10,0)rotate(-45)")
-.style("text-anchor", "end").attr("fill", data_set_066.color_layout_axis);
+.style("text-anchor", "end").attr("fill", data_set_066.color_bars_layout_axis);
+
+// highlight stuff
+var ticks_066 = g.selectAll(".tick text");
+ticks_066.attr("class", function(d,i){
+if(data_bars_066[i].mau == 1){ return "tick_marker"}
+else if(data_bars_066[i].mau == 1000){ return "tick_marker"}
+});
+g.selectAll(".tick_marker").attr("fill", data_set_066.color_bars_layout_axis_marker);
 }
+
+
 
 // SCALE Y axis
 var yScale_066 = d3.scaleLinear()
@@ -258,11 +284,11 @@ gfx_layer_3_066.append("g")
 function customYAxis_066(g) {
 g.call(yAxis_066);
 g.select(".domain").remove();
-g.selectAll(".tick:not(:first-of-type) line").attr("stroke", data_set_066.color_layout_axis)
+g.selectAll(".tick:not(:first-of-type) line").attr("stroke", data_set_066.color_bars_layout_axis)
 .attr("stroke-dasharray", "3,3").style("stroke-width", 1);
 g.selectAll(".tick:first-of-type line").remove();
 g.selectAll(".tick text").attr("text-anchor", "end").attr("x", -6).attr("dy", -2)
-.style("fill", data_set_066.color_layout_axis);
+.style("fill", data_set_066.color_bars_layout_axis);
 }
 
 // LAYER 4 --------------------------------------------------
@@ -277,8 +303,21 @@ gfx_layer_4_066.selectAll()
 .attr("fill-opacity", .5)
 .attr("y", function(d) { return yScale_066(d.mau); })
 .attr("height", function(d) { return data_set_066.bar_height - yScale_066(d.mau); })
+// highlight stuff
+.attr("class", function(d,i){
+if(data_bars_066[i].mau == 1){ return "bar_marker"}
+else if(data_bars_066[i].mau == 1000){ return "bar_marker"}
+})
+gfx_layer_4_066.selectAll(".bar_marker").attr("fill", data_set_066.color_bars_marker)
+
 // close data parse
 })
+
+
+
+
+
+
 
 
 
