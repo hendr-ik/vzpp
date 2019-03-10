@@ -8,10 +8,8 @@ margin: 20,
 center_x: 250,
 center_y: 270,
 // ----------------------------------------------------------
-map_width: 540,
-map_height: 540,
-bar_width: 475,
-bar_height: 300,
+area_width: 400,
+area_height: 400,
 // ----------------------------------------------------------
 position_headline: 25,
 position_source: 500,
@@ -71,11 +69,14 @@ var container_margin_067 = container_067.append("g")
 // ----------------------------------------------------------
 // create group for gfx - translate the group for margin top, left
 var gfx_group_067 = container_margin_067.append("g")
-.attr("transform", "translate(" + data_set_067.center_x + "," + data_set_067.center_y + ")")
-.attr("class", "gfx_group");
+//.attr("transform", "translate(" + data_set_067.center_x + "," + data_set_067.center_y + ")")
+.attr("class", "gfx_group")
+//.attr("transform", "translate(50,0)");
 // create sub-groups for layers
 var gfx_layer_0_067 = gfx_group_067.append("g")
-.attr("class", "gfx_layer_0");
+.attr("class", "gfx_layer_0")
+.attr("transform", "translate(50,0)")
+;
 // ----------------------------------------------------------
 // create group for text
 var text_group_067 = container_margin_067.append("g")
@@ -113,6 +114,75 @@ layout_group_067.append("rect")
 
 // LAYER 0 --------------------------------------------------
 
+
+
+
+
+
+
+
+
+
+
+// append the svg object to the body of the page
+var svg = d3.select(".gfx_layer_0")
+  .append("svg")
+    //.attr("width", data_set_067.container_width)
+    //.attr("height", data_set_067.container_height)
+  .append("g")
+;
+
+
+
+// Parse the Data
+d3.csv("static/viz/067/data.csv", function(data) {
+
+  // List of groups = header of the csv files
+  var keys = data.columns.slice(1)
+
+  // Add X axis
+  var x = d3.scaleLinear()
+    .domain(d3.extent(data, function(d) { return d.year; }))
+    .range([ 0, data_set_067.area_width ]);
+  svg.append("g")
+    .attr("transform", "translate(0," + data_set_067.area_height + ")")
+    .call(d3.axisBottom(x).ticks(5));
+
+  // Add Y axis
+  var y = d3.scaleLinear()
+    .domain([0, 200000])
+    .range([ data_set_067.area_height, 0 ]);
+  svg.append("g")
+    .call(d3.axisLeft(y))
+// why this?
+    .attr("transform", "translate(50,0)")
+;
+
+  // color palette
+  var color = d3.scaleOrdinal()
+    .domain(keys)
+    .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf'])
+
+  //stack the data?
+  var stackedData = d3.stack()
+    .keys(keys)
+    (data)
+    //console.log("This is the stack result: ", stackedData)
+
+  // Show the areas
+  svg
+    .selectAll("mylayers")
+    .data(stackedData)
+    .enter()
+    .append("path")
+      .style("fill", function(d) { console.log(d.key) ; return color(d.key); })
+      .attr("d", d3.area()
+        .x(function(d, i) { return x(d.data.year); })
+        .y0(function(d) { return y(d[0]); })
+        .y1(function(d) { return y(d[1]); })
+    )
+
+})
 
 
 
