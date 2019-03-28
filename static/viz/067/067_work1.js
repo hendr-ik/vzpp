@@ -75,7 +75,7 @@ var gfx_group_067 = container_margin_067.append("g")
 // create sub-groups for layers
 var gfx_layer_0_067 = gfx_group_067.append("g")
 .attr("class", "gfx_layer_0")
-.attr("transform", "translate(60,60)")
+.attr("transform", "translate(50,0)")
 ;
 // ----------------------------------------------------------
 // create group for text
@@ -114,25 +114,45 @@ layout_group_067.append("rect")
 
 // LAYER 0 --------------------------------------------------
 
+
+
+
+
+
+
+
+
+
+
+// append the svg object to the body of the page
+var svg = d3.select(".gfx_layer_0")
+  //.append("svg")
+    //.attr("width", data_set_067.container_width)
+    //.attr("height", data_set_067.container_height)
+  .append("g")
+;
+
+
+
 // Parse the Data
 d3.csv("static/viz/067/data.csv", function(data) {
 
-// List of groups = header of the csv files
-var keys = data.columns.slice(1)
+  // List of groups = header of the csv files
+  var keys = data.columns.slice(1)
 
   // Add X axis
   var x = d3.scaleLinear()
     .domain(d3.extent(data, function(d) { return d.year; }))
     .range([ 0, data_set_067.area_width ]);
-  gfx_layer_0_067.append("g")
+  svg.append("g")
     .attr("transform", "translate(0," + data_set_067.area_height + ")")
     .call(d3.axisBottom(x).ticks(5));
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 2000])
+    .domain([0, 200000])
     .range([ data_set_067.area_height, 0 ]);
-  gfx_layer_0_067.append("g")
+  svg.append("g")
     .call(d3.axisLeft(y))
 // why this?
     .attr("transform", "translate(0,0)")
@@ -150,7 +170,7 @@ var keys = data.columns.slice(1)
     //console.log("This is the stack result: ", stackedData)
 
   // Show the areas
-  gfx_layer_0_067
+  svg
     .selectAll("mylayers")
     .data(stackedData)
     .enter()
