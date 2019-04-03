@@ -1,4 +1,10 @@
 
+
+// find right number tickFormat
+http://bl.ocks.org/zanarmstrong/05c1e95bf7aa16c4768e
+
+
+
 // Retrieve x and y of an object
 var transf = d3.select("#Line").attr("transform");
 var splitted = transf.split(",");

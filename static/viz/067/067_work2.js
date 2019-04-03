@@ -115,53 +115,18 @@ layout_group_067.append("rect")
 // LAYER 0 --------------------------------------------------
 
 // Parse the Data
-d3.csv("static/viz/067/data.csv", function(data_graph_067) {
+d3.csv("static/viz/067/data.csv", function(data) {
 
 // List of groups = header of the csv files
-var keys = data_graph_067.columns.slice(1)
+var keys = data.columns.slice(1)
 
-
-
-// Add X axis
-var xScale_067 = d3.scaleLinear()
-.range([ 0, data_set_067.area_width ])
-.domain(d3.extent(data_graph_067, function(d) { return d.year; }))
-;
-
-var xAxis_067 = d3.axisBottom(xScale_067);
-
-gfx_layer_0_067.append("g")
-.attr("transform", "translate(0," + data_set_067.area_height + ")")
-// format to plain year number format
-.call(d3.axisBottom(xScale_067)
-.ticks(15, "")
-
-
-///////////////////////////
-.tickFormat(function(d) { return d.year; })
-
-
-
-)
-// append custom axis
-.call(customXAxis_067)
-;
-// change axis design
-function customXAxis_067(g) {
-g.select(".domain").remove();
-g.selectAll(".tick line").attr("stroke", "#000")
-g.selectAll("text").attr("transform", "translate(-10,0)rotate(-45)")
-.style("text-anchor", "end").attr("fill", "#000");
-}
-
-/*
-gfx_layer_0_067.append("g")
-.attr("transform", "translate(0," + data_set_067.area_height + ")")
-.call(d3.axisBottom(x).ticks(15));
-*/
-
-
-
+  // Add X axis
+  var x = d3.scaleLinear()
+    .domain(d3.extent(data, function(d) { return d.year; }))
+    .range([ 0, data_set_067.area_width ]);
+  gfx_layer_0_067.append("g")
+    .attr("transform", "translate(0," + data_set_067.area_height + ")")
+    .call(d3.axisBottom(x).ticks(5));
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -181,7 +146,7 @@ gfx_layer_0_067.append("g")
   //stack the data?
   var stackedData = d3.stack()
     .keys(keys)
-    (data_graph_067)
+    (data)
     //console.log("This is the stack result: ", stackedData)
 
   // Show the areas
@@ -192,7 +157,7 @@ gfx_layer_0_067.append("g")
     .append("path")
       .style("fill", function(d) { console.log(d.key) ; return color(d.key); })
       .attr("d", d3.area()
-        .x(function(d, i) { return xScale_067(d.data.year); })
+        .x(function(d, i) { return x(d.data.year); })
         .y0(function(d) { return y(d[0]); })
         .y1(function(d) { return y(d[1]); })
     )
