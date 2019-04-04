@@ -117,7 +117,7 @@ layout_group_067.append("rect")
 // Parse the Data
 d3.csv("static/viz/067/data.csv", function(data_graph_067) {
 // List of groups = header of the csv files
-var keys = data_graph_067.columns.slice(1)
+var keys_067 = data_graph_067.columns.slice(1)
 
 // build array of selected years
 var selectedYears_067 = [];
@@ -132,6 +132,7 @@ var threshold_067 = d3.scaleThreshold()
 var xScale_067 = d3.scaleLinear()
 .range([ 0, data_set_067.area_width ])
 .domain(d3.extent(data_graph_067, function(d) { return d.year; }));
+
 // add X axis
 gfx_layer_0_067.append("g")
 .attr("transform", "translate(0," + data_set_067.area_height + ")")
@@ -141,53 +142,62 @@ gfx_layer_0_067.append("g")
 // format to plain number
 .tickFormat(d3.format("")))
 .call(customXAxis_067);
-// change axis design
+
+// change X axis design
 function customXAxis_067(g) {
 g.select(".domain").remove();
 g.selectAll(".tick line").attr("stroke", "#000")
 g.selectAll("text").attr("transform", "translate(-10,0)rotate(-45)")
 .style("text-anchor", "end").attr("fill", "#000");
+g.selectAll(".tick:last-of-type").remove();
 }
 
 
-// define Y scale
+// define Y scales
 var yScale_067 = d3.scaleLinear()
 .domain([0, 1800])
 .range([ data_set_067.area_height, 0 ]);
 
 // add Y axis
 gfx_layer_0_067.append("g")
-.call(d3.axisLeft(yScale_067))
-.ticks(5);
-// change axis design
+.call(d3.axisRight(yScale_067)
+.tickSize(data_set_067.area_width - 12)
+.ticks(5))
+.call(customYAxis_067);
+
+// change Y axis design
+function customYAxis_067(g) {
+g.select(".domain").remove();
+g.selectAll(".tick:not(:first-of-type) line").attr("stroke", "#000")
+.attr("stroke-dasharray", "3,3").style("stroke-width", 1);
+g.selectAll(".tick:first-of-type line").remove();
+g.selectAll(".tick text").attr("text-anchor", "end").attr("x", -6).attr("dy", -2)
+.style("fill", "#000");
+}
 
 
+// color palette
+var color = d3.scaleOrdinal()
+.domain(keys_067)
+.range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf'])
 
+//stack the data
+var stackedData_067 = d3.stack().keys(keys_067)(data_graph_067)
 
-  // color palette
-  var color = d3.scaleOrdinal()
-    .domain(keys)
-    .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf'])
-
-  //stack the data?
-  var stackedData = d3.stack()
-    .keys(keys)
-    (data_graph_067)
-    //console.log("This is the stack result: ", stackedData)
-
-  // Show the areas
-  gfx_layer_0_067
-    .selectAll("mylayers")
-    .data(stackedData)
-    .enter()
-    .append("path")
-      .style("fill", function(d) { console.log(d.key) ; return color(d.key); })
-      .attr("d", d3.area()
-        .x(function(d, i) { return xScale_067(d.data.year); })
-        .y0(function(d) { return yScale_067(d[0]); })
-        .y1(function(d) { return yScale_067(d[1]); })
-    )
-
+// Show the areas
+gfx_layer_0_067
+.selectAll("mylayers")
+.data(stackedData_067)
+.enter()
+.append("path")
+.style("fill", function(d) { console.log(d.key) ; return color(d.key); })
+.attr("d", d3.area()
+// make it a step curve
+.curve(d3.curveStepAfter)
+.x(function(d, i) { return xScale_067(d.data.year); })
+.y0(function(d) { return yScale_067(d[0]); })
+.y1(function(d) { return yScale_067(d[1]); })
+)
 })
 
 
