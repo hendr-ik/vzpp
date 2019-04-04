@@ -116,36 +116,31 @@ layout_group_067.append("rect")
 
 // Parse the Data
 d3.csv("static/viz/067/data.csv", function(data_graph_067) {
-
 // List of groups = header of the csv files
 var keys = data_graph_067.columns.slice(1)
 
+// build array of selected years
+var selectedYears_067 = [];
+for (var i = 0; i < data_graph_067.length; i++) {
+selectedYears_067.push(data_graph_067[i].year);
+};
+// define threshold
+var threshold_067 = d3.scaleThreshold()
+.domain(selectedYears_067);
 
-
-// Add X axis
+// define X scale
 var xScale_067 = d3.scaleLinear()
 .range([ 0, data_set_067.area_width ])
-.domain(d3.extent(data_graph_067, function(d) { return d.year; }))
-;
-
-var xAxis_067 = d3.axisBottom(xScale_067);
-
+.domain(d3.extent(data_graph_067, function(d) { return d.year; }));
+// add X axis
 gfx_layer_0_067.append("g")
 .attr("transform", "translate(0," + data_set_067.area_height + ")")
-// format to plain year number format
 .call(d3.axisBottom(xScale_067)
-.ticks(15, "")
-
-
-///////////////////////////
-.tickFormat(function(d) { return d.year; })
-
-
-
-)
-// append custom axis
-.call(customXAxis_067)
-;
+// pass treshhold values
+.tickValues(threshold_067.domain())
+// format to plain number
+.tickFormat(d3.format("")))
+.call(customXAxis_067);
 // change axis design
 function customXAxis_067(g) {
 g.select(".domain").remove();
@@ -154,24 +149,20 @@ g.selectAll("text").attr("transform", "translate(-10,0)rotate(-45)")
 .style("text-anchor", "end").attr("fill", "#000");
 }
 
-/*
+
+// define Y scale
+var yScale_067 = d3.scaleLinear()
+.domain([0, 1800])
+.range([ data_set_067.area_height, 0 ]);
+
+// add Y axis
 gfx_layer_0_067.append("g")
-.attr("transform", "translate(0," + data_set_067.area_height + ")")
-.call(d3.axisBottom(x).ticks(15));
-*/
+.call(d3.axisLeft(yScale_067))
+.ticks(5);
+// change axis design
 
 
 
-
-  // Add Y axis
-  var y = d3.scaleLinear()
-    .domain([0, 2000])
-    .range([ data_set_067.area_height, 0 ]);
-  gfx_layer_0_067.append("g")
-    .call(d3.axisLeft(y))
-// why this?
-    .attr("transform", "translate(0,0)")
-;
 
   // color palette
   var color = d3.scaleOrdinal()
@@ -193,8 +184,8 @@ gfx_layer_0_067.append("g")
       .style("fill", function(d) { console.log(d.key) ; return color(d.key); })
       .attr("d", d3.area()
         .x(function(d, i) { return xScale_067(d.data.year); })
-        .y0(function(d) { return y(d[0]); })
-        .y1(function(d) { return y(d[1]); })
+        .y0(function(d) { return yScale_067(d[0]); })
+        .y1(function(d) { return yScale_067(d[1]); })
     )
 
 })

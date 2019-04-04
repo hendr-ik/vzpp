@@ -4,6 +4,9 @@
 http://bl.ocks.org/zanarmstrong/05c1e95bf7aa16c4768e
 
 
+// print value to console
+console.log (value);
+
 
 // Retrieve x and y of an object
 var transf = d3.select("#Line").attr("transform");
