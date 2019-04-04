@@ -12,7 +12,7 @@
 --font-size_16_mobile: 18px;
 
 --font-size_12: 12px;
---font-size_12_mobile: 16px;
+--font-size_12_mobile: 14px;
 
 --switch_font-size: 18px;
 --switch_font-size_mobile: 12px;
@@ -88,6 +88,7 @@ font-weight: 600;
 
 .tick_marker {
 font-weight: 600;
+font-size: var(--font-size_12);
 }
 
 /* 065 */
@@ -332,6 +333,10 @@ font-size: var(--font-size_16_mobile);
 
 .map_value {
 font-size: var(--font-size_16_mobile);
+}
+
+.tick_marker {
+font-size: var(--font-size_12_mobile);
 }
 
 /* 065 */
