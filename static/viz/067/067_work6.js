@@ -26,13 +26,11 @@ color_graph_layout_axis: "#a5a7af",
 color_graph_area_1: ["#7a6ed5","#8a7ed8","#a197dd"],
 color_graph_area_2: ["#261697","#5b4cc4","#a399e7","#da5404","#ff8e4b","#ffc19c","#ddad00","#ffd84b","#ffeca7"],
 // sticker
-stickerX_1_067: 400,
-stickerY_1_067: 20,
+stickerX_1_067: 356,
+stickerY_1_067: 38,
 sticker_color_1: "#fff",
 sticker_bg_color_1: "#dfc6b0",
 sticker_display_1: "1,703",
-// legend
-legend_displays: ["Smileys & Emotion", "People & Body",	"Animals & Nature",	"Food & Drink",	"Travel & Places", "Activities", "Objects",	"Symbols", "Flags"],
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -86,10 +84,6 @@ var gfx_layer_2_067 = gfx_group_067.append("g")
 ;
 var gfx_layer_3_067 = gfx_group_067.append("g")
 .attr("class", "gfx_layer_3")
-.attr("transform", "translate(38,70)")
-;
-var gfx_layer_4_067 = gfx_group_067.append("g")
-.attr("class", "gfx_layer_4")
 .attr("transform", "translate(38,70)")
 ;
 // ----------------------------------------------------------
@@ -253,68 +247,44 @@ gfx_layer_2_067.selectAll()
 
 
 // ----------------------------------------------------------
-// STICKERS -------------------------------------------------
+// STICKERS ---------------------------------------------------
 // ----------------------------------------------------------
+
 var sticker_1_067 = gfx_layer_3_067.append("g")
 .attr("class", "sticker");
+// create text
+sticker_1_067.append("text")
+.attr("x", data_set_067.stickerX_1_067)
+.attr("y", data_set_067.stickerY_1_067)
+.attr("text-anchor", "right")
+.text(data_set_067.sticker_display_1)
+.style("fill", data_set_067.sticker_color_1);
+// get bbox values
+var sticker_bbox_1_067 = sticker_1_067.node().getBBox();
+// round bbox height to diversible by 2
+var sticker_bbox_1_067_height_round = Math.round(sticker_bbox_1_067.height / 2) * 2;
+// put rec behind text
+sticker_1_067.insert("rect","text")
+.attr("x", sticker_bbox_1_067.x - 5)
+.attr("y", sticker_bbox_1_067.y - 5)
+.attr("width", sticker_bbox_1_067.width + 10)
+.attr("height", sticker_bbox_1_067_height_round + 10)
+.style("fill", data_set_067.sticker_bg_color_1);
+// calcualte tip position
+var stickerX_1_tip = data_set_067.stickerX_1_067 + sticker_bbox_1_067.width + 5;
+var stickerY_1_tip = data_set_067.stickerY_1_067 - sticker_bbox_1_067_height_round / 2 - 10;
 // create tip
 sticker_1_067.append("polygon")
 .attr("points", "60 0,0 10,0 0")
 .style("fill", data_set_067.sticker_bg_color_1)
-.attr("transform", `translate(${data_set_067.stickerX_1_067}, ${data_set_067.stickerY_1_067})`);
-// create text
-var sticker_text_1_067 = sticker_1_067.append("text")
-.attr("text-anchor", "right")
-.attr("x", data_set_067.stickerX_1_067 - 46)
-.attr("y", data_set_067.stickerY_1_067 + 3)
-.text(data_set_067.sticker_display_1)
-.style("fill", data_set_067.sticker_color_1);
-// get bbox values
-var sticker_bbox_1_067 = sticker_text_1_067.node().getBBox();
-// update text position
-sticker_text_1_067.attr("transform", `translate(0, ${Math.round(sticker_bbox_1_067.height)})`);
-// put rec behind text
-sticker_1_067.insert("rect","text")
-.attr("x", sticker_bbox_1_067.x - 6)
-.attr("y", data_set_067.stickerY_1_067)
-.attr("width", sticker_bbox_1_067.width + 12)
-.attr("height", sticker_bbox_1_067.height + 12)
-.style("fill", data_set_067.sticker_bg_color_1);
+.attr("transform", `translate(${stickerX_1_tip}, ${stickerY_1_tip})`);
 
 
 
 
-// ----------------------------------------------------------
-// LEGEND ---------------------------------------------------
-// ----------------------------------------------------------
-// set up colors
-var legend_color_067 = d3.scaleOrdinal()
-.domain(data_set_067.legend_displays)
-.range(data_set_067.color_graph_area_2);
 
-// Add dot for each color
-gfx_layer_4_067.selectAll()
-.data(data_set_067.legend_displays)
-.enter()
-.append("circle")
-.attr("cx", 0)
-// the distance between dots
-.attr("cy", function(d,i){ return i*25})
-.attr("r", 7)
-.style("fill", function(d){ return legend_color_067(d)})
 
-// Add display text for each color
-gfx_layer_4_067.selectAll()
-.data(data_set_067.legend_displays)
-.enter()
-.append("text")
-.attr("x", 20)
-// the distance between text
-.attr("y", function(d,i){ return i*25})
-.style("fill", function(d){ return legend_color_067(d)})
-.text(function(d){ return d})
-.attr("text-anchor", "left")
-.style("alignment-baseline", "middle")
+
 
 
 

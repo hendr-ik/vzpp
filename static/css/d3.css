@@ -74,6 +74,13 @@ order: 2;
 
 
 /* Typo */
+/* 067 */
+.sticker {
+font-size: var(--font-size_16);
+font-weight: 600;
+line-height: 1;
+}
+
 /* 066 */
 .map_display {
 font-size: var(--font-size_16);
@@ -302,6 +309,7 @@ width: 50px;
 height: 270px;
 }
 
+#canvas_067,
 #canvas_066,
 #canvas_065,
 #canvas_064,
@@ -327,6 +335,13 @@ height: 270px;
 
 
 /* Typo */
+/* 067 */
+.sticker {
+font-size: var(--font-size_16_mobile);
+font-weight: 600;
+line-height: 1;
+}
+
 /* 066 */
 .map_display {
 font-size: var(--font-size_16_mobile);
