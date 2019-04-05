@@ -23,8 +23,7 @@ color_basic: "#a399e7",
 color_layout_stroke: "#f2e8df",
 // graph
 color_graph_layout_axis: "#a5a7af",
-color_graph_area_1: ["#7a6ed5","#8a7ed8","#a197dd"],
-color_graph_area_2: ["#261697","#5b4cc4","#a399e7","#da5404","#ff8e4b","#ffc19c","#ddad00","#ffd84b","#ffeca7"],
+color_graph_area: ["261697","#5b4cc4","a399e7","da5404","ff8e4b","ffc19c","ddad00","ffd84b","ffeca7"],
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -70,10 +69,6 @@ var gfx_layer_0_067 = gfx_group_067.append("g")
 ;
 var gfx_layer_1_067 = gfx_group_067.append("g")
 .attr("class", "gfx_layer_1")
-.attr("transform", "translate(38,70)")
-;
-var gfx_layer_2_067 = gfx_group_067.append("g")
-.attr("class", "gfx_layer_2")
 .attr("transform", "translate(38,70)")
 ;
 // ----------------------------------------------------------
@@ -134,7 +129,6 @@ var xScale_067 = d3.scaleLinear()
 
 // add X axis
 gfx_layer_0_067.append("g")
-.attr("class","Xaxis")
 .attr("transform", "translate(0," + data_set_067.area_height + ")")
 .call(d3.axisBottom(xScale_067)
 // pass treshhold values
@@ -151,19 +145,18 @@ g.selectAll("text").attr("transform", "translate(-10,0)rotate(-45)")
 .style("text-anchor", "end").attr("fill", data_set_067.color_graph_layout_axis);
 
 // highlight stuff
-g.selectAll(".tick")
-.attr("class", function(d,i){
+var ticks_067 = g.selectAll(".tick");
+ticks_067.attr("class", function(d,i){
 if(data_graph_067[i].year == 2010){ return "tick_marker"}
 else if(data_graph_067[i].year == 1995){ return "tick_marker"}
 else if(data_graph_067[i].year == 2016){ return "tick_marker"}
 else if(data_graph_067[i].year == 2019){ return "tick_marker"}
 else{ return "tick"}
 });
+g.selectAll(".tick_marker text").attr("fill", "#000");
+g.selectAll(".tick_marker line").attr("stroke", "#000");
 // fix position "2019"
 g.selectAll(".tick_marker:last-of-type").attr("transform", "translate(459,0)");
-// change styles
-d3.selectAll(".Xaxis").selectAll(".tick").attr("opacity", 0);
-d3.selectAll(".tick_marker text").attr("fill", "#a5a7af").attr("font-weight", "400");
 }
 
 
@@ -194,20 +187,13 @@ g.selectAll(".tick:not(:first-of-type) line").attr("stroke", data_set_067.color_
 g.selectAll(".tick:first-of-type line").remove();
 g.selectAll(".tick text").attr("text-anchor", "end").attr("x", -6).attr("dy", -2)
 .style("fill", data_set_067.color_graph_layout_axis);
-
-// highlight stuff
-g.selectAll(".tick:last-of-type").attr("class", "tick_marker");
-
-};
+}
 
 
 // color palette
-var color_067_1 = d3.scaleOrdinal()
+var color = d3.scaleOrdinal()
 .domain(keys_067)
-.range(data_set_067.color_graph_area_1)
-var color_067_2 = d3.scaleOrdinal()
-.domain(keys_067)
-.range(data_set_067.color_graph_area_2)
+.range(data_set_067.color_graph_area)
 
 //stack the data
 var stackedData_067 = d3.stack().keys(keys_067)(data_graph_067)
@@ -217,61 +203,16 @@ gfx_layer_1_067.selectAll()
 .data(stackedData_067)
 .enter()
 .append("path")
-.style("fill", function(d) { return color_067_1(d.key); })
+.style("fill", function(d) { console.log(d.key) ; return color(d.key); })
 .attr("d", d3.area()
 .x(function(d, i) { return xScale_067(d.data.year); })
 .y0(function(d) { return yScale_067(d[0]); })
 .y1(function(d) { return yScale_067(d[1]); })
 )
-gfx_layer_2_067.selectAll()
-.data(stackedData_067)
-.enter()
-.append("path")
-.style("fill", function(d) { return color_067_2(d.key); })
-.attr("d", d3.area()
-.x(function(d, i) { return xScale_067(d.data.year); })
-.y0(function(d) { return yScale_067(d[0]); })
-.y1(function(d) { return yScale_067(d[1]); })
-)
-// close csv read function
 })
 
 
 
-
-// ----------------------------------------------------------
-// ANIMATION ------------------------------------------------
-// ----------------------------------------------------------
-// set up switch variable and layer transparencys
-d3.select(".gfx_layer_2").attr("opacity", 0);
-var switch_067 = true;
-
-
-// On radio button click
-d3.selectAll("input[name='button_B']")
-.on("change", change_067
-);
-//
-function change_067() {
-if (switch_067 == false) {
-d3.selectAll(".Xaxis").selectAll(".tick").attr("opacity", 0);
-d3.selectAll(".tick_marker text").attr("fill", "#a5a7af").attr("font-weight", "400");
-d3.selectAll(".tick_marker line").attr("stroke", "#a5a7af");
-d3.select(".gfx_layer_1").attr("opacity", 1);
-d3.select(".gfx_layer_2").attr("opacity", 0);
-
-switch_067 = true;
-}
-else {
-d3.selectAll(".Xaxis").selectAll(".tick").attr("opacity", 1);
-d3.selectAll(".tick_marker text").attr("fill", "#2e2f33").attr("font-weight", "600");
-d3.selectAll(".tick_marker line").attr("stroke", "#2e2f33");
-d3.select(".gfx_layer_1").attr("opacity", 0);
-d3.select(".gfx_layer_2").attr("opacity", 1);
-
-switch_067 = false;
-}
-}
 
 
 
