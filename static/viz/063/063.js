@@ -138,14 +138,11 @@ var menu_group_063 = container_margin_063.append("g")
 var gfx_group_063 = container_margin_063.append("g")
 .attr("class", "gfx_group");
 // create sub-group for diagram_1
-var gfx_layer_1_063 = gfx_group_063.append("g")
-.attr("class", "gfx_layer_1");
+var gfx_layer_1_063 = gfx_group_063.append("g");
 // create sub-group for diagram_2
-var gfx_layer_2_063 = gfx_group_063.append("g")
-.attr("class", "gfx_layer_2");
+var gfx_layer_2_063 = gfx_group_063.append("g");
 // create sub-group for diagram_3
-var gfx_layer_3_063 = gfx_group_063.append("g")
-.attr("class", "gfx_layer_3");
+var gfx_layer_3_063 = gfx_group_063.append("g");
 // ----------------------------------------------------------
 // create group for text
 var text_group_063 = container_margin_063.append("g")
@@ -357,12 +354,12 @@ d3.select("#canvas_063").select("#button_1_r").style("fill", data_set_063.color_
 // set button text colors -----------------------------------
 d3.select("#canvas_063").select("#button_1_t").style("fill", data_set_063.color_button_text_on);
 // switch out -----------------------------------------------
-d3.select("#canvas_063").select(".gfx_layer_2").attr("opacity", 0);
-d3.select("#canvas_063").selectAll(".gfx_layer_2 .gfx_bar .gfx_bar_rect").attr("width", 0);
-d3.select("#canvas_063").selectAll(".gfx_layer_2 .gfx_bar .bar_value").attr("opacity", 0);
-d3.select("#canvas_063").select(".gfx_layer_3").attr("opacity", 0);
-d3.select("#canvas_063").selectAll(".gfx_layer_3 .gfx_bar .gfx_bar_rect").attr("width", 0);
-d3.select("#canvas_063").selectAll(".gfx_layer_3 .gfx_bar .bar_value").attr("opacity", 0);
+gfx_layer_2_063.attr("opacity", 0);
+gfx_layer_2_063.selectAll(" .gfx_bar .gfx_bar_rect").attr("width", 0);
+gfx_layer_2_063.selectAll(" .gfx_bar .bar_value").attr("opacity", 0);
+gfx_layer_3_063.attr("opacity", 0);
+gfx_layer_3_063.selectAll(" .gfx_bar .gfx_bar_rect").attr("width", 0);
+gfx_layer_3_063.selectAll(" .gfx_bar .bar_value").attr("opacity", 0);
 
 // ----------------------------------------------------------
 // ANIMATION "button_2"
@@ -378,17 +375,17 @@ d3.select("#canvas_063").select("#button_2_r").style("fill", data_set_063.color_
 d3.select("#canvas_063").select("#button_1_t").style("fill",  data_set_063.color_button_text_off);
 d3.select("#canvas_063").select("#button_2_t").style("fill", data_set_063.color_button_text_on);
 // switch out -----------------------------------------------
-d3.select("#canvas_063").select(".gfx_layer_1").attr("opacity", 0);
+gfx_layer_1_063.attr("opacity", 0);
 // make sure its allways width = 0
-d3.select("#canvas_063").selectAll(".gfx_layer_1 .gfx_bar .gfx_bar_rect")
+gfx_layer_1_063.selectAll(" .gfx_bar .gfx_bar_rect")
 .transition().delay(301).duration(0).attr("width", 0);
-d3.select("#canvas_063").selectAll(".gfx_layer_1 .gfx_bar .bar_value").attr("opacity", 0);
+gfx_layer_1_063.selectAll(" .gfx_bar .bar_value").attr("opacity", 0);
 // switch on ------------------------------------------------
-d3.select("#canvas_063").select(".gfx_layer_2").attr("opacity", 1);
-d3.select("#canvas_063").selectAll(".gfx_layer_2 .gfx_bar .gfx_bar_rect")
+gfx_layer_2_063.attr("opacity", 1);
+gfx_layer_2_063.selectAll(" .gfx_bar .gfx_bar_rect")
 .transition().duration(300).ease(d3.easePolyOut)
 .attr("width", (d) => xScale_2_063(d.value_2));
-d3.select("#canvas_063").selectAll(".gfx_layer_2 .gfx_bar .bar_value")
+gfx_layer_2_063.selectAll(" .gfx_bar .bar_value")
 .transition().delay(90).duration(100).attr("opacity", 1);
 // change ---------------------------------------------------
 d3.select("#canvas_063").select(".text_subheadline").text(data_set_063.text_subheadline_2);
@@ -402,17 +399,17 @@ d3.select("#canvas_063").select("#button_1_r").style("fill", data_set_063.color_
 d3.select("#canvas_063").select("#button_2_t").style("fill", data_set_063.color_button_text_off);
 d3.select("#canvas_063").select("#button_1_t").style("fill", data_set_063.color_button_text_on);
 // switch out -----------------------------------------------
-d3.select("#canvas_063").select(".gfx_layer_2").attr("opacity", 0);
+gfx_layer_2_063.attr("opacity", 0);
 // make sure its allways width = 0
-d3.select("#canvas_063").selectAll(".gfx_layer_2 .gfx_bar .gfx_bar_rect")
+gfx_layer_2_063.selectAll(" .gfx_bar .gfx_bar_rect")
 .transition().delay(301).duration(0).attr("width", 0);
-d3.select("#canvas_063").selectAll(".gfx_layer_2 .gfx_bar .bar_value").attr("opacity", 0);
+gfx_layer_2_063.selectAll(" .gfx_bar .bar_value").attr("opacity", 0);
 // switch on ------------------------------------------------
-d3.select("#canvas_063").select(".gfx_layer_1").attr("opacity", 1);
-d3.select("#canvas_063").selectAll(".gfx_layer_1 .gfx_bar .gfx_bar_rect")
+gfx_layer_1_063.attr("opacity", 1);
+gfx_layer_1_063.selectAll(" .gfx_bar .gfx_bar_rect")
 .transition().duration(300).ease(d3.easePolyOut)
 .attr("width", (d) => xScale_1_063(d.value_1));
-d3.select("#canvas_063").selectAll(".gfx_layer_1 .gfx_bar .bar_value")
+gfx_layer_1_063.selectAll(" .gfx_bar .bar_value")
 .transition().delay(90).duration(100).attr("opacity", 1);
 // change ---------------------------------------------------
 d3.select("#canvas_063").select(".text_subheadline").text(data_set_063.text_subheadline_1);
@@ -432,17 +429,17 @@ d3.select("#canvas_063").select("#button_3_r").style("fill", data_set_063.color_
 d3.select("#canvas_063").select("#button_1_t").style("fill", data_set_063.color_button_text_off);
 d3.select("#canvas_063").select("#button_3_t").style("fill", data_set_063.color_button_text_on);
 // switch out -----------------------------------------------
-d3.select("#canvas_063").select(".gfx_layer_1").attr("opacity", 0);
+gfx_layer_1_063.attr("opacity", 0);
 // make sure its allways width = 0
-d3.select("#canvas_063").selectAll(".gfx_layer_1 .gfx_bar .gfx_bar_rect")
+gfx_layer_1_063.selectAll(" .gfx_bar .gfx_bar_rect")
 .transition().delay(301).duration(0).attr("width", 0);
-d3.select("#canvas_063").selectAll(".gfx_layer_1 .gfx_bar .bar_value").attr("opacity", 0);
+gfx_layer_1_063.selectAll(" .gfx_bar .bar_value").attr("opacity", 0);
 // switch on ------------------------------------------------
-d3.select("#canvas_063").select(".gfx_layer_3").attr("opacity", 1);
-d3.select("#canvas_063").selectAll(".gfx_layer_3 .gfx_bar .gfx_bar_rect")
+gfx_layer_3_063.attr("opacity", 1);
+gfx_layer_3_063.selectAll(" .gfx_bar .gfx_bar_rect")
 .transition().duration(300).ease(d3.easePolyOut)
 .attr("width", (d) => xScale_3_063(d.value_3));
-d3.select("#canvas_063").selectAll(".gfx_layer_3 .gfx_bar .bar_value")
+gfx_layer_3_063.selectAll(" .gfx_bar .bar_value")
 .transition().delay(90).duration(100).attr("opacity", 1);
 // change ---------------------------------------------------
 d3.select("#canvas_063").select(".text_subheadline").text(data_set_063.text_subheadline_3);
@@ -456,17 +453,17 @@ d3.select("#canvas_063").select("#button_1_r").style("fill", data_set_063.color_
 d3.select("#canvas_063").select("#button_3_t").style("fill", data_set_063.color_button_text_off);
 d3.select("#canvas_063").select("#button_1_t").style("fill", data_set_063.color_button_text_on);
 // switch out -----------------------------------------------
-d3.select("#canvas_063").select(".gfx_layer_3").attr("opacity", 0);
+gfx_layer_3_063.attr("opacity", 0);
 // make sure its allways width = 0
-d3.select("#canvas_063").selectAll(".gfx_layer_3 .gfx_bar .gfx_bar_rect")
+gfx_layer_3_063.selectAll(" .gfx_bar .gfx_bar_rect")
 .transition().delay(301).duration(0).attr("width", 0);
-d3.select("#canvas_063").selectAll(".gfx_layer_3 .gfx_bar .bar_value").attr("opacity", 0);
+gfx_layer_3_063.selectAll(" .gfx_bar .bar_value").attr("opacity", 0);
 // switch on ------------------------------------------------
-d3.select("#canvas_063").select(".gfx_layer_1").attr("opacity", 1);
-d3.select("#canvas_063").selectAll(".gfx_layer_1 .gfx_bar .gfx_bar_rect")
+gfx_layer_1_063.attr("opacity", 1);
+gfx_layer_1_063.selectAll(" .gfx_bar .gfx_bar_rect")
 .transition().duration(300).ease(d3.easePolyOut)
 .attr("width", (d) => xScale_1_063(d.value_1));
-d3.select("#canvas_063").selectAll(".gfx_layer_1 .gfx_bar .bar_value")
+gfx_layer_1_063.selectAll(" .gfx_bar .bar_value")
 .transition().delay(90).duration(100).attr("opacity", 1);
 // change ---------------------------------------------------
 d3.select("#canvas_063").select(".text_subheadline").text(data_set_063.text_subheadline_1);

@@ -96,12 +96,10 @@ var gfx_group_065 = container_margin_065.append("g")
 .attr("transform", "translate(" + data_set_065.center_x + "," + data_set_065.center_y + ")")
 .attr("class", "gfx_group");
 // create sub-groups for layers
-var gfx_layer_0_065 = gfx_group_065.append("g")
-.attr("class", "gfx_layer_0");
+var gfx_layer_0_065 = gfx_group_065.append("g");
 var gfx_layer_1_065 = gfx_group_065.append("g")
 // reposition pie display and value
-.attr("transform", "translate(-30,23)")
-.attr("class", "gfx_layer_1");
+.attr("transform", "translate(-30,23)");
 // ----------------------------------------------------------
 // create group for text
 var text_group_065 = container_margin_065.append("g")

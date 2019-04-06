@@ -111,8 +111,8 @@ layout_group_067.append("rect")
 // GFX ------------------------------------------------------
 // ----------------------------------------------------------
 // Parse the Data
-//d3.csv("http://niefeld.com/static/viz/067/data.csv", function(data_area_067) {
-d3.csv("static/viz/067/data.csv", function(data_area_067) {
+d3.csv("http://niefeld.com/static/viz/067/data.csv", function(data_area_067) {
+//d3.csv("static/viz/067/data.csv", function(data_area_067) {
 // List of groups = header of the csv files
 var keys_067 = data_area_067.columns.slice(1)
 

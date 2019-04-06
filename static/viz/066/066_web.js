@@ -87,20 +87,15 @@ var gfx_group_066 = container_margin_066.append("g")
 .attr("transform", "translate(" + data_set_066.center_x + "," + data_set_066.center_y + ")")
 .attr("class", "gfx_group");
 // create sub-groups for layers
-var gfx_layer_0_066 = gfx_group_066.append("g")
-.attr("class", "gfx_layer_0");
+var gfx_layer_0_066 = gfx_group_066.append("g");
 var gfx_layer_1_066 = gfx_group_066.append("g")
-.attr("transform", "translate(0,-10)")
-.attr("class", "gfx_layer_1");
+.attr("transform", "translate(0,-10)");
 var gfx_layer_2_066 = gfx_group_066.append("g")
-.attr("transform", "translate(0,-10)")
-.attr("class", "gfx_layer_2");
+.attr("transform", "translate(0,-10)");
 var gfx_layer_3_066 = gfx_group_066.append("g")
-.attr("transform", "translate(-214,-170)")
-.attr("class", "gfx_layer_3");
+.attr("transform", "translate(-214,-170)");
 var gfx_layer_4_066 = gfx_group_066.append("g")
-.attr("transform", "translate(-214,-170)")
-.attr("class", "gfx_layer_4");
+.attr("transform", "translate(-214,-170)");
 // ----------------------------------------------------------
 // create group for text
 var text_group_066 = container_margin_066.append("g")
@@ -308,39 +303,39 @@ gfx_layer_4_066.selectAll(".bar_marker").attr("fill", data_set_066.color_bars_ma
 // ----------------------------------------------------------
 // set up switch variable and layer transparencys
 var switch_066 = true;
-d3.select(".gfx_layer_0").attr("opacity", 1);
-d3.select(".gfx_layer_1").attr("opacity", 1);
-d3.select(".gfx_layer_2").attr("opacity", 1);
-d3.select(".gfx_layer_3").attr("opacity", 0);
-d3.select(".gfx_layer_4").attr("opacity", 0);
+gfx_layer_0_066.attr("opacity", 1);
+gfx_layer_1_066.attr("opacity", 1);
+gfx_layer_2_066.attr("opacity", 1);
+gfx_layer_3_066.attr("opacity", 0);
+gfx_layer_4_066.attr("opacity", 0);
 //
 d3.select(".text_subheadline_1").attr("opacity", 1);
 d3.select(".text_subheadline_2").attr("opacity", 1);
 
 // On radio button click
-d3.selectAll("input[name='button_B']")
+d3.selectAll("input[name='button_B_066']")
 .on("change", change_066
 );
 //
 function change_066() {
 if (switch_066 == false) {
-d3.select(".gfx_layer_3").transition().duration(200).attr("opacity", 0);
-d3.select(".gfx_layer_4").transition().duration(200).attr("opacity", 0);
+gfx_layer_3_066.transition().duration(200).attr("opacity", 0);
+gfx_layer_4_066.transition().duration(200).attr("opacity", 0);
 //
 d3.select(".text_subheadline_1").transition().duration(300).attr("opacity", 1);
-d3.select(".gfx_layer_0").transition().duration(300).attr("opacity", 1);
-d3.select(".gfx_layer_1").transition().delay(100).duration(300).attr("opacity", 1);
-d3.select(".gfx_layer_2").transition().delay(150).duration(300).attr("opacity", 1);
+gfx_layer_0_066.transition().duration(300).attr("opacity", 1);
+gfx_layer_1_066.transition().delay(100).duration(300).attr("opacity", 1);
+gfx_layer_2_066.transition().delay(150).duration(300).attr("opacity", 1);
 switch_066 = true;
 }
 else {
 d3.select(".text_subheadline_1").transition().duration(200).attr("opacity", 0);
-d3.select(".gfx_layer_2").transition().duration(200).attr("opacity", 0);
-d3.select(".gfx_layer_1").transition().duration(200).attr("opacity", 0);
-d3.select(".gfx_layer_0").transition().duration(200).attr("opacity", 0);
+gfx_layer_2_066.transition().duration(200).attr("opacity", 0);
+gfx_layer_1_066.transition().duration(200).attr("opacity", 0);
+gfx_layer_0_066.transition().duration(200).attr("opacity", 0);
 //
-d3.select(".gfx_layer_3").transition().duration(300).attr("opacity", 1);
-d3.select(".gfx_layer_4").transition().delay(150).duration(300).attr("opacity", 1);
+gfx_layer_3_066.transition().duration(300).attr("opacity", 1);
+gfx_layer_4_066.transition().delay(150).duration(300).attr("opacity", 1);
 switch_066 = false;
 }
 }

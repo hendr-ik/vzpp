@@ -94,18 +94,12 @@ var gfx_group_064 = container_margin_064.append("g")
 // padding > translate to fix x axis overlap
 .attr("transform", "translate(" + data_set_064.padding_left + ",0)");
 // create sub-groups for layers
-var gfx_layer_0_064 = gfx_group_064.append("g")
-.attr("class", "gfx_layer_0");
-var gfx_layer_1_064 = gfx_group_064.append("g")
-.attr("class", "gfx_layer_1");
-var gfx_layer_2_064 = gfx_group_064.append("g")
-.attr("class", "gfx_layer_2");
-var gfx_layer_3_064 = gfx_group_064.append("g")
-.attr("class", "gfx_layer_3");
-var gfx_layer_4_064 = gfx_group_064.append("g")
-.attr("class", "gfx_layer_4");
-var gfx_layer_5_064 = gfx_group_064.append("g")
-.attr("class", "gfx_layer_5");
+var gfx_layer_0_064 = gfx_group_064.append("g");
+var gfx_layer_1_064 = gfx_group_064.append("g");
+var gfx_layer_2_064 = gfx_group_064.append("g");
+var gfx_layer_3_064 = gfx_group_064.append("g");
+var gfx_layer_4_064 = gfx_group_064.append("g");
+var gfx_layer_5_064 = gfx_group_064.append("g");
 // ----------------------------------------------------------
 // create group for text
 var text_group_064 = container_margin_064.append("g")
@@ -454,64 +448,60 @@ this.parentNode.insertBefore(this, firstChild);
 
 // mouseovers
 // layer 1
-d3.select("#canvas_064").select(".gfx_layer_1")
-.on("mouseenter", function() {
+gfx_layer_1_064.on("mouseenter", function() {
 d3.select(this).moveToFront();
-d3.select("#canvas_064").selectAll(".gfx_layer_1 .line").style("stroke", data_set_064.color_graph_b_on);
-d3.select("#canvas_064").selectAll(".gfx_layer_1 .dot").attr("opacity", 1);
-d3.select("#canvas_064").selectAll(".gfx_layer_1 .graph_display").style("fill", data_set_064.color_graph_label_b_on);
+gfx_layer_1_064.selectAll(".line").style("stroke", data_set_064.color_graph_b_on);
+gfx_layer_1_064.selectAll(".dot").attr("opacity", 1);
+gfx_layer_1_064.selectAll(".graph_display").style("fill", data_set_064.color_graph_label_b_on);
 })
 .on("mouseleave", function() {
-d3.select("#canvas_064").select(".gfx_layer_5").moveToFront();
-d3.select("#canvas_064").selectAll(".gfx_layer_1 .line").style("stroke", data_set_064.color_graph_b);
-d3.select("#canvas_064").selectAll(".gfx_layer_1 .dot").attr("opacity", 0);
-d3.select("#canvas_064").selectAll(".gfx_layer_1 .graph_display").style("fill", data_set_064.color_graph_label_b);
+gfx_layer_5_064.moveToFront();
+gfx_layer_1_064.selectAll(".line").style("stroke", data_set_064.color_graph_b);
+gfx_layer_1_064.selectAll(".dot").attr("opacity", 0);
+gfx_layer_1_064.selectAll(".graph_display").style("fill", data_set_064.color_graph_label_b);
 
 });
 
 // layer 2
-d3.select(".gfx_layer_2")
-.on("mouseenter", function() {
+gfx_layer_2_064.on("mouseenter", function() {
 d3.select(this).moveToFront();
-d3.select("#canvas_064").selectAll(".gfx_layer_2 .line").style("stroke", data_set_064.color_graph_b_on);
-d3.select("#canvas_064").selectAll(".gfx_layer_2 .dot").attr("opacity", 1);
-d3.select("#canvas_064").selectAll(".gfx_layer_2 .graph_display").style("fill", data_set_064.color_graph_label_b_on);
+gfx_layer_2_064.selectAll(".line").style("stroke", data_set_064.color_graph_b_on);
+gfx_layer_2_064.selectAll(".dot").attr("opacity", 1);
+gfx_layer_2_064.selectAll(".graph_display").style("fill", data_set_064.color_graph_label_b_on);
 })
 .on("mouseleave", function() {
-d3.select(".gfx_layer_5").moveToFront();
-d3.select("#canvas_064").selectAll(".gfx_layer_2 .line").style("stroke", data_set_064.color_graph_b);
-d3.select("#canvas_064").selectAll(".gfx_layer_2 .dot").attr("opacity", 0);
-d3.select("#canvas_064").selectAll(".gfx_layer_2 .graph_display").style("fill", data_set_064.color_graph_label_b);
+gfx_layer_5_064.moveToFront();
+gfx_layer_2_064.selectAll(".line").style("stroke", data_set_064.color_graph_b);
+gfx_layer_2_064.selectAll(".dot").attr("opacity", 0);
+gfx_layer_2_064.selectAll(".graph_display").style("fill", data_set_064.color_graph_label_b);
 });
 
 // layer 3
-d3.select(".gfx_layer_3")
-.on("mouseenter", function() {
+gfx_layer_3_064.on("mouseenter", function() {
 d3.select(this).moveToFront();
-d3.select("#canvas_064").selectAll(".gfx_layer_3 .line").style("stroke", data_set_064.color_graph_b_on);
-d3.select("#canvas_064").selectAll(".gfx_layer_3 .dot").attr("opacity", 1);
-d3.select("#canvas_064").selectAll(".gfx_layer_3 .graph_display").style("fill", data_set_064.color_graph_label_b_on);
+gfx_layer_3_064.selectAll(".line").style("stroke", data_set_064.color_graph_b_on);
+gfx_layer_3_064.selectAll(".dot").attr("opacity", 1);
+gfx_layer_3_064.selectAll(".graph_display").style("fill", data_set_064.color_graph_label_b_on);
 })
 .on("mouseleave", function() {
-d3.select(".gfx_layer_5").moveToFront();
-d3.select("#canvas_064").selectAll(".gfx_layer_3 .line").style("stroke", data_set_064.color_graph_b);
-d3.select("#canvas_064").selectAll(".gfx_layer_3 .dot").attr("opacity", 0);
-d3.select("#canvas_064").selectAll(".gfx_layer_3 .graph_display").style("fill", data_set_064.color_graph_label_b);
+gfx_layer_5_064.moveToFront();
+gfx_layer_3_064.selectAll(".line").style("stroke", data_set_064.color_graph_b);
+gfx_layer_3_064.selectAll(".dot").attr("opacity", 0);
+gfx_layer_3_064.selectAll(".graph_display").style("fill", data_set_064.color_graph_label_b);
 });
 
 // layer 4
-d3.select(".gfx_layer_4")
-.on("mouseenter", function() {
+gfx_layer_4_064.on("mouseenter", function() {
 d3.select(this).moveToFront();
-d3.select("#canvas_064").selectAll(".gfx_layer_4 .line").style("stroke", data_set_064.color_graph_b_on);
-d3.select("#canvas_064").selectAll(".gfx_layer_4 .dot").attr("opacity", 1);
-d3.select("#canvas_064").selectAll(".gfx_layer_4 .graph_display").style("fill", data_set_064.color_graph_label_b_on);
+gfx_layer_4_064.selectAll(".line").style("stroke", data_set_064.color_graph_b_on);
+gfx_layer_4_064.selectAll(".dot").attr("opacity", 1);
+gfx_layer_4_064.selectAll(".graph_display").style("fill", data_set_064.color_graph_label_b_on);
 })
 .on("mouseleave", function() {
-d3.select("#canvas_064").select(".gfx_layer_5").moveToFront();
-d3.select("#canvas_064").selectAll(".gfx_layer_4 .line").style("stroke", data_set_064.color_graph_b);
-d3.select("#canvas_064").selectAll(".gfx_layer_4 .dot").attr("opacity", 0);
-d3.select("#canvas_064").selectAll(".gfx_layer_4 .graph_display").style("fill", data_set_064.color_graph_label_b);
+gfx_layer_5_064.select(".gfx_layer_5").moveToFront();
+gfx_layer_4_064.selectAll(".line").style("stroke", data_set_064.color_graph_b);
+gfx_layer_4_064.selectAll(".dot").attr("opacity", 0);
+gfx_layer_4_064.selectAll(".graph_display").style("fill", data_set_064.color_graph_label_b);
 });
 
 
