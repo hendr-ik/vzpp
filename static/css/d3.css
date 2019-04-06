@@ -81,6 +81,18 @@ font-weight: 600;
 line-height: 1;
 }
 
+.legend_headline {
+font-size: var(--font-size_12);
+font-weight: 600;
+line-height: 1;
+}
+
+.legend {
+font-size: var(--font-size_12);
+font-weight: 400;
+line-height: 1;
+}
+
 /* 066 */
 .map_display {
 font-size: var(--font-size_16);
@@ -338,7 +350,17 @@ height: 270px;
 /* 067 */
 .sticker {
 font-size: var(--font-size_16_mobile);
+}
+
+.legend_headline {
+font-size: var(--font-size_12_mobile);
 font-weight: 600;
+line-height: 1;
+}
+
+.legend {
+font-size: var(--font-size_12_mobile);
+font-weight: 400;
 line-height: 1;
 }
 

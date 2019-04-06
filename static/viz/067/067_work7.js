@@ -24,7 +24,7 @@ color_layout_stroke: "#f2e8df",
 // graph
 color_graph_layout_axis: "#a5a7af",
 color_graph_area_1: ["#7a6ed5","#8a7ed8","#a197dd"],
-color_graph_area_2: ["#261697","#5b4cc4","#a399e7","#da5404","#ff8e4b","#ffc19c","#ddad00","#f9ce35","#ffe68a"],
+color_graph_area_2: ["#261697","#5b4cc4","#a399e7","#da5404","#ff8e4b","#ffc19c","#ddad00","#ffd84b","#ffeca7"],
 // sticker
 stickerX_1_067: 400,
 stickerY_1_067: 20,
@@ -32,7 +32,7 @@ sticker_color_1: "#fff",
 sticker_bg_color_1: "#dfc6b0",
 sticker_display_1: "1,703",
 // legend
-legend_displays: ["Flags", "Symbols", "Objects", "Activities", "Travel & Places", "Food & Drink", "Animals & Nature", "People & Body", "Smileys & Emotion", "Categories"],
+legend_displays: ["Smileys & Emotion", "People & Body",	"Animals & Nature",	"Food & Drink",	"Travel & Places", "Activities", "Objects",	"Symbols", "Flags"],
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -90,7 +90,7 @@ var gfx_layer_3_067 = gfx_group_067.append("g")
 ;
 var gfx_layer_4_067 = gfx_group_067.append("g")
 .attr("class", "gfx_layer_4")
-.attr("transform", "translate(100,345)")
+.attr("transform", "translate(38,70)")
 ;
 // ----------------------------------------------------------
 // create group for text
@@ -291,52 +291,31 @@ sticker_1_067.insert("rect","text")
 var legend_color_067 = d3.scaleOrdinal()
 .domain(data_set_067.legend_displays)
 .range(data_set_067.color_graph_area_2);
-// ad rec as legend bg
-gfx_layer_4_067.append("rect")
-.attr("x", -20)
-.attr("y", -220)
-.attr("width", 160)
-.attr("height", 240)
-.attr("fill", data_set_067.color_bg);
 
-
-// filter out last value from array that is headline
-var last_element_067 = data_set_067.legend_displays[data_set_067.legend_displays.length - 1];
-var filtered_067 = data_set_067.legend_displays.filter((d)=>{return d !== last_element_067;})
-// Add dot for each color used
+// Add dot for each color
 gfx_layer_4_067.selectAll()
-.data(filtered_067)
+.data(data_set_067.legend_displays)
 .enter()
 .append("circle")
-.attr("cy", function(d,i){return 0 - i*25 - 2})
 .attr("cx", 0)
-// the distance between dots reversed to build up from bottom
-.attr("cy", function(d,i){return 0 - i*25 - 2})
+// the distance between dots
+.attr("cy", function(d,i){ return 0 - i*25})
 .attr("r", 7)
-.style("fill", function(d){ return legend_color_067(d)});
+.style("fill", function(d){ return legend_color_067(d)})
 
-
-// Add display text for each color in legend
+// Add display text for each color
 gfx_layer_4_067.selectAll()
 .data(data_set_067.legend_displays)
 .enter()
 .append("text")
 .attr("x", 20)
-// the distance between text reversed to build up from bottom
+// the distance between text
 .attr("y", function(d,i){ return 0 - i*25})
-// color headline differently
-.style("fill", function(d,i){
-if(i < d.length - 1){return data_set_067.color_graph_layout_axis}
-else {return data_set_067.color_text_headline}
-})
+.style("fill", function(d){ return legend_color_067(d)})
 .text(function(d){ return d})
 .attr("text-anchor", "left")
 .style("alignment-baseline", "middle")
-// add different css classes
-.attr("class", function(d,i){
-if(i < d.length - 1){return "legend"}
-else {return "legend_headline"}
-});
+
 
 
 
@@ -346,7 +325,6 @@ else {return "legend_headline"}
 // ----------------------------------------------------------
 // set up switch variable and layer transparencys
 d3.select(".gfx_layer_2").attr("opacity", 0);
-d3.select(".gfx_layer_4").attr("opacity", 0);
 var switch_067 = true;
 
 
@@ -362,7 +340,6 @@ d3.selectAll(".tick_marker text").attr("fill", "#a5a7af").attr("font-weight", "4
 d3.selectAll(".tick_marker line").attr("stroke", "#a5a7af");
 d3.select(".gfx_layer_1").attr("opacity", 1);
 d3.select(".gfx_layer_2").attr("opacity", 0);
-d3.select(".gfx_layer_4").attr("opacity", 0);
 
 switch_067 = true;
 }
@@ -372,7 +349,6 @@ d3.selectAll(".tick_marker text").attr("fill", "#2e2f33").attr("font-weight", "6
 d3.selectAll(".tick_marker line").attr("stroke", "#2e2f33");
 d3.select(".gfx_layer_1").attr("opacity", 0);
 d3.select(".gfx_layer_2").attr("opacity", 1);
-d3.select(".gfx_layer_4").attr("opacity", 1);
 
 switch_067 = false;
 }
