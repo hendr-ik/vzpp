@@ -11,8 +11,8 @@ center_y: 270,
 position_headline: 25,
 position_source: 500,
 // ----------------------------------------------------------
-text_headline: "Counts of Emoji",
-text_subheadline: "Single characters only",
+text_headline: "Number of Emoji",
+text_subheadline: "Single icons only",
 text_source: "Source: The Unicode Consortium, 2019",
 // ----------------------------------------------------------
 color_bg: "#f9f4ef",
@@ -241,7 +241,7 @@ sticker_1_067.append("polygon")
 // create text
 var sticker_text_1_067 = sticker_1_067.append("text")
 .attr("text-anchor", "right")
-.attr("x", data_set_067.stickerX_1_067 - 46)
+.attr("x", data_set_067.stickerX_1_067 - 45)
 .attr("y", data_set_067.stickerY_1_067 + 3)
 .text(data_set_067.sticker_display_1)
 .style("fill", data_set_067.sticker_color_1);
