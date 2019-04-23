@@ -7,6 +7,10 @@ from flask import render_template
 app = Flask(__name__)
 
 
+@app.route("/068")
+def page_068():
+    return render_template('068.html')
+
 @app.route("/067")
 def page_067():
     return render_template('067.html')
