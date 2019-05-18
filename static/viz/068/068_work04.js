@@ -115,15 +115,10 @@ gfx_layer_0_068.selectAll("circle")
 .style("fill", "#000")
 ;
 
-//radio button on website
-d3.selectAll("input[name='button_B_068']")
-.on("change", change_068)
-;
-
 //button function
-function change_068() {
+function doUpdate_068() {
 
-//select data switch
+//select data
 if (data_set_068.index == 1) {
 data_set_068.index = 2;
 } else {
@@ -135,7 +130,7 @@ var circle_068 = gfx_layer_0_068.selectAll("circle")
 .data(eval("data_set_068.set_" + data_set_068.index))
 ;
 
-// remove unneeded circles
+// animate and remove unneeded circles
 circle_068.exit()
 .transition().duration(500)
 .attr("r", 0)
@@ -161,6 +156,38 @@ circle_068.enter().append("circle")
 
 //end button function
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

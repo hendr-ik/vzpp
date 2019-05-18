@@ -11,25 +11,27 @@ center_y: 270,
 position_headline: 25,
 position_source: 500,
 // ----------------------------------------------------------
-text_headline: "###",
-text_subheadline: "###",
-text_source: "Source: ###",
+text_headline: "Number of Emoji",
+text_subheadline: "Single icons only",
+text_source: "Source: The Unicode Consortium, 2019",
 // ----------------------------------------------------------
 color_bg: "#f9f4ef",
 color_basic: "#a399e7",
 color_layout_stroke: "#f2e8df",
-// ----------------------------------------------------------
-// circles
-index: 1,
-set_1: [
-{"label": "A", "posX": 50, "posY": 50, "rad": 20},
-{"label": "B", "posX": 100, "posY": 100, "rad": 20},
-{"label": "C", "posX": 150, "posY": 150, "rad": 20},
-],
-set_2: [
-{"label": "D", "posX": 200, "posY": 200, "rad": 20},
-{"label": "E", "posX": 250, "posY": 250, "rad": 20}
-],
+// area
+area_width: 460,
+area_height: 360,
+color_area_layout_axis: "#a5a7af",
+color_area_area_1: ["#7a6ed5","#8a7ed8","#a197dd"],
+color_area_area_2: ["#261697","#5b4cc4","#a399e7","#da5404","#ff8e4b","#ffc19c","#ddad00","#f9ce35","#ffe68a"],
+// sticker
+stickerX_1_068: 400,
+stickerY_1_068: 20,
+sticker_color_1: "#fff",
+sticker_bg_color_1: "#dfc6b0",
+sticker_display_1: "1,703",
+// legend
+legend_displays: ["Flags", "Symbols", "Objects", "Activities", "Travel & Places", "Food & Drink", "Animals & Nature", "People & Body", "Smileys & Emotion", "Categories"],
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -102,65 +104,93 @@ layout_group_068.append("rect")
 // GFX ------------------------------------------------------
 // ----------------------------------------------------------
 
-//create start circles
-gfx_layer_0_068.selectAll("circle")
-.data(eval("data_set_068.set_" + data_set_068.index))
+
+
+
+
+
+var data_set_068 = [
+{"label": "A", "posX": 50, "posY": 50, "rad": 20},
+{"label": "B", "posX": 100, "posY": 100, "rad": 20},
+{"label": "C", "posX": 150, "posY": 150, "rad": 20},
+];
+
+var data_set_068_2 = [
+{"label": "D", "posX": 200, "posY": 200, "rad": 20}
+];
+
+
+function doEnter() {
+
+var circles = gfx_layer_0_068.selectAll("circle")
+.data(data_set_068)
 .enter()
 .append("circle")
 .attr("cx", function (d) { return d.posX; })
 .attr("cy", function (d) { return d.posY; })
-// set position first and animate scale later
-.transition().duration(500)
 .attr("r", function (d) { return d.rad; })
-.style("fill", "#000")
-;
+.style("fill", "#000");
 
-//radio button on website
-d3.selectAll("input[name='button_B_068']")
-.on("change", change_068)
-;
-
-//button function
-function change_068() {
-
-//select data switch
-if (data_set_068.index == 1) {
-data_set_068.index = 2;
-} else {
-data_set_068.index = 1;
-}
-
-//rejoin data
-var circle_068 = gfx_layer_0_068.selectAll("circle")
-.data(eval("data_set_068.set_" + data_set_068.index))
-;
-
-// remove unneeded circles
-circle_068.exit()
-.transition().duration(500)
-.attr("r", 0)
-.remove()
-;
-
-//create new circles needed
-circle_068.enter().append("circle")
-.attr("cx", function (d) { return d.posX; })
-.attr("cy", function (d) { return d.posY; })
-// set start point for element size
-.attr("r", 0)
-.style("fill", "#000")
-//merge elements into selection of existing elements
-.merge(circle_068)
-//update all circles
-.transition().duration(500)
-.attr("cx", function (d) { return d.posX; })
-.attr("cy", function (d) { return d.posY; })
-.attr("r", function (d) { return d.rad; })
-.style("fill", "#000")
-;
-
-//end button function
 };
+
+
+function doUpdate() {
+
+var circles = gfx_layer_0_068.selectAll("circle")
+.data(data_set_068_2)
+.enter()
+.append("circle")
+/*
+.attr("cx", function (d) { return d.posX; })
+.attr("cy", function (d) { return d.posY; })
+.attr("r", function (d) { return d.rad; })
+*/
+.attr("cx", 200)
+.attr("cy", 200)
+.attr("r", 20)
+.style("fill", "#ccc");
+
+};
+
+
+function doExit() {
+
+d3.selectAll("circle")
+.remove();
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

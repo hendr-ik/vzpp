@@ -11,16 +11,15 @@ center_y: 270,
 position_headline: 25,
 position_source: 500,
 // ----------------------------------------------------------
-text_headline: "###",
-text_subheadline: "###",
-text_source: "Source: ###",
+text_headline: "Number of Emoji",
+text_subheadline: "Single icons only",
+text_source: "Source: The Unicode Consortium, 2019",
 // ----------------------------------------------------------
 color_bg: "#f9f4ef",
 color_basic: "#a399e7",
 color_layout_stroke: "#f2e8df",
-// ----------------------------------------------------------
-// circles
-index: 1,
+
+// data
 set_1: [
 {"label": "A", "posX": 50, "posY": 50, "rad": 20},
 {"label": "B", "posX": 100, "posY": 100, "rad": 20},
@@ -30,6 +29,8 @@ set_2: [
 {"label": "D", "posX": 200, "posY": 200, "rad": 20},
 {"label": "E", "posX": 250, "posY": 250, "rad": 20}
 ],
+
+
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -102,65 +103,110 @@ layout_group_068.append("rect")
 // GFX ------------------------------------------------------
 // ----------------------------------------------------------
 
-//create start circles
+
+
+
+
+//2 different data arrays
+var dataArray1 = [30,35,45,55,70];
+var dataArray2 = [50,55,45,35,20,25,25,40];
+
+
+
+
+//globals
+var dataIndex=1;
+var xBuffer=50;
+var yBuffer=150;
+var lineLength=400;
+
+
+
+
+
+//create basic circles
 gfx_layer_0_068.selectAll("circle")
-.data(eval("data_set_068.set_" + data_set_068.index))
+.data(eval("data_set_068.set_"+dataIndex))
 .enter()
 .append("circle")
 .attr("cx", function (d) { return d.posX; })
 .attr("cy", function (d) { return d.posY; })
-// set position first and animate scale later
-.transition().duration(500)
 .attr("r", function (d) { return d.rad; })
 .style("fill", "#000")
 ;
 
-//radio button on website
-d3.selectAll("input[name='button_B_068']")
-.on("change", change_068)
-;
 
-//button function
-function change_068() {
 
-//select data switch
-if (data_set_068.index == 1) {
-data_set_068.index = 2;
-} else {
-data_set_068.index = 1;
+
+function doUpdate() {
+
+//select new data
+if (dataIndex==1) {
+dataIndex=2;
+} else   {
+dataIndex=1;
 }
 
-//rejoin data
-var circle_068 = gfx_layer_0_068.selectAll("circle")
-.data(eval("data_set_068.set_" + data_set_068.index))
-;
 
-// remove unneeded circles
-circle_068.exit()
-.transition().duration(500)
-.attr("r", 0)
-.remove()
-;
+
+//rejoin data
+var circle = gfx_layer_0_068.selectAll("circle")
+.data(eval("data_set_068.set_"+dataIndex));
+
+//remove unneeded circles
+circle.exit().remove();
 
 //create new circles needed
-circle_068.enter().append("circle")
-.attr("cx", function (d) { return d.posX; })
-.attr("cy", function (d) { return d.posY; })
-// set start point for element size
-.attr("r", 0)
-.style("fill", "#000")
-//merge elements into selection of existing elements
-.merge(circle_068)
-//update all circles
-.transition().duration(500)
+circle.enter().append("circle")
 .attr("cx", function (d) { return d.posX; })
 .attr("cy", function (d) { return d.posY; })
 .attr("r", function (d) { return d.rad; })
 .style("fill", "#000")
 ;
 
-//end button function
+
+//update all circles
+circle.transition().duration(500)
+.attr("cx", function (d) { return d.posX; })
+.attr("cy", function (d) { return d.posY; })
+.attr("r", function (d) { return d.rad; })
+.style("fill", "#000")
+;
+
+//end click function
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
