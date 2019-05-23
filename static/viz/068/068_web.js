@@ -126,8 +126,8 @@ layout_group_068.append("rect")
 // GFX ------------------------------------------------------
 // ----------------------------------------------------------
 // parse the data
-//d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_plot_068) {
-d3.csv("static/viz/068/data.csv", function(data_plot_068) {
+d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_plot_068) {
+//d3.csv("static/viz/068/data.csv", function(data_plot_068) {
 
 // LAYER 0 --------------------------------------------------
 // define X scale

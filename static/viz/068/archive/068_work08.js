@@ -33,15 +33,14 @@ color_circle_4: "#a399e7",
 color_circle_5: "#261697",
 // legend
 legend_1: [
-{"label": "Age group", "position": 0},
-{"label": "18-29", "position": 31},
-{"label": "30-49", "position": 61},
-{"label": "50+", "position": 79},
+{"label": "Age group"},
+{"label": "18-29", "color": "#ffc19c"},
+{"label": "30-49", "color": "#ff8e4b"},
+{"label": "50+", "color": "#da5404"},
 ],
 legend_2: [
-{"label": "Education", "position": 0},
-{"label": "less", "position": 38},
-{"label": "more", "position": 77},
+{"label": "Less education", "color": "#a399e7"},
+{"label": "More education", "color": "#261697"},
 ],
 // text
 color_text_headline: "#2e2f33",
@@ -126,7 +125,7 @@ layout_group_068.append("rect")
 // GFX ------------------------------------------------------
 // ----------------------------------------------------------
 // parse the data
-//d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_plot_068) {
+//d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_area_067) {
 d3.csv("static/viz/068/data.csv", function(data_plot_068) {
 
 // LAYER 0 --------------------------------------------------
@@ -148,7 +147,21 @@ g.selectAll(".tick line").attr("stroke", data_set_068.color_area_layout_axis)
 .attr("y2", 0 - data_set_068.plot_height + 30)
 .attr("stroke-dasharray", "3,3").style("stroke-width", 1);
 g.selectAll("text").attr("fill", data_set_068.color_area_layout_axis);
-};
+// highlight stuff
+/*
+g.selectAll(".tick")
+.attr("class", function(d,i){
+if(data_area_067[i].year == 2010){ return "tick_marker"}
+else if(data_area_067[i].year == 1995){ return "tick_marker"}
+else if(data_area_067[i].year == 2016){ return "tick_marker"}
+else if(data_area_067[i].year == 2019){ return "tick_marker"}
+else{ return "tick"}
+});
+// change styles
+d3.selectAll(".Xaxis").selectAll(".tick").attr("opacity", 0);
+d3.selectAll(".tick_marker text").attr("fill", "#a5a7af").attr("font-weight", "400");
+*/
+}
 // label for X axis
 gfx_layer_0_068.append("text")
 .attr("class","tick")
@@ -157,11 +170,13 @@ gfx_layer_0_068.append("text")
 .style("text-anchor", "end")
 .text("%");
 
+
 // define Y scales
 var yScale_068 = d3.scaleBand()
 .range([ 0, data_set_068.plot_height ])
 .domain(data_plot_068.map(function(d) { return d.group; }))
-.padding(1);
+.padding(1)
+;
 // add Y axis
 gfx_layer_0_068.append("g")
 .call(d3.axisLeft(yScale_068))
@@ -179,7 +194,7 @@ g.selectAll(".tick line")
 g.selectAll(".tick text").attr("text-anchor", "end").attr("x", -10)
 // fit values with axis line
 .attr("transform", "translate(0,-0.5)")
-.style("fill", data_set_068.color_text_headline);
+.style("fill", data_set_068.color_area_layout_axis);
 };
 
 // LAYER 1 --------------------------------------------------
@@ -194,7 +209,8 @@ gfx_layer_1_068.selectAll()
 .attr("y1", function(d) { return yScale_068(d.group); })
 .attr("y2", function(d) { return yScale_068(d.group); })
 .attr("stroke", data_set_068.color_line_1)
-.attr("stroke-width", "1px");
+.attr("stroke-width", "1px")
+
 // add circles of value 1
 gfx_layer_1_068.selectAll()
 .data(data_plot_068)
@@ -204,7 +220,7 @@ gfx_layer_1_068.selectAll()
 .attr("cx", function(d) { return xScale_068(d.value1); })
 .attr("cy", function(d) { return yScale_068(d.group); })
 .attr("r", 6)
-.style("fill", data_set_068.color_circle_1);
+.style("fill", data_set_068.color_circle_1)
 // add circles of value 2
 gfx_layer_1_068.selectAll()
 .data(data_plot_068)
@@ -214,7 +230,7 @@ gfx_layer_1_068.selectAll()
 .attr("cx", function(d) { return xScale_068(d.value2); })
 .attr("cy", function(d) { return yScale_068(d.group); })
 .attr("r", 6)
-.style("fill", data_set_068.color_circle_2);
+.style("fill", data_set_068.color_circle_2)
 // add circles of value 3
 gfx_layer_1_068.selectAll()
 .data(data_plot_068)
@@ -224,7 +240,7 @@ gfx_layer_1_068.selectAll()
 .attr("cx", function(d) { return xScale_068(d.value3); })
 .attr("cy", function(d) { return yScale_068(d.group); })
 .attr("r", 6)
-.style("fill", data_set_068.color_circle_3);
+.style("fill", data_set_068.color_circle_3)
 
 
 
@@ -233,68 +249,40 @@ gfx_layer_1_068.selectAll()
 // LEGEND ---------------------------------------------------
 // ----------------------------------------------------------
 // LAYER 2 --------------------------------------------------
+
+// filter out first value from array that is headline
+var first_element_068 = data_set_068.legend_1[0];
+var filtered_068 = data_set_068.legend_1.filter((d)=>{return d !== first_element_068;})
+// legend circles
+gfx_layer_2_068.selectAll()
+.data(filtered_068)
+.enter()
+.append("circle")
+.attr("cy", 76)
+.attr("cx", function(d,i){return 240 + i*70})
+.attr("r", 6)
+.style("fill",  function (d) { return d.color; });
 // legend text
 gfx_layer_2_068.selectAll()
 .data(data_set_068.legend_1)
 .enter()
 .append("text")
 .attr("class", "legend")
-.attr("y", 76)
-.attr("x", function(d) { return 80 + xScale_068(d.position); })
-// diverse text anchors
-.style("text-anchor", function(d,i){
-if(i == 0){return "start"}
-else {return "middle"}
-})
+.attr("y", 80)
+.attr("x", function(d,i){return 182 + i*70})
 .text(function (d) { return d.label; })
-.style("fill", data_set_068.color_area_layout_axis);
-// filter out first value from array that is headline
-var first_element_1_068 = data_set_068.legend_1[0];
-var filtered_1_068 = data_set_068.legend_1.filter((d)=>{return d !== first_element_1_068;})
-// legend rect
-gfx_layer_2_068.selectAll()
-.data(filtered_1_068)
-.enter()
-.append("rect")
-.attr("height", 18)
-.attr("width", 1)
-.attr("y", 82)
-// allign rect positions to pixels
-.attr("x", function(d) { return Math.round(80 + xScale_068(d.position)); })
-.style("fill", data_set_068.color_area_layout_axis);
+.style("fill", data_set_068.color_text_headline)
+// give headline different text anchor
+.attr("text-anchor", function(d,i){
+if(i == 0){return "middle"}
+else {return "start"}
+})
+;
+
 
 // LAYER 3 --------------------------------------------------
-// legend text
-gfx_layer_3_068.selectAll()
-.data(data_set_068.legend_2)
-.enter()
-.append("text")
-.attr("class", "legend")
-.attr("y", 76)
-.attr("x", function(d) { return 80 + xScale_068(d.position); })
-// diverse text anchors
-.style("text-anchor", function(d,i){
-if(i == 0){return "start"}
-else {return "middle"}
-})
-.text(function (d) { return d.label; })
-.style("fill", data_set_068.color_area_layout_axis);
-// filter out first value from array that is headline
-var first_element_2_068 = data_set_068.legend_2[0];
-var filtered_2_068 = data_set_068.legend_2.filter((d)=>{return d !== first_element_2_068;})
-// legend rect
-gfx_layer_3_068.selectAll()
-.data(filtered_2_068)
-.enter()
-.append("rect")
-.attr("height", 18)
-.attr("width", 1)
-.attr("y", 82)
-// allign rect positions to pixels
-.attr("x", function(d) { return Math.round(80 + xScale_068(d.position)); })
-.style("fill", data_set_068.color_area_layout_axis);
-// hide layer
-gfx_layer_3_068.attr("opacity", 0);
+
+
 
 
 
@@ -304,11 +292,11 @@ gfx_layer_3_068.attr("opacity", 0);
 // ----------------------------------------------------------
 //radio button on website
 d3.selectAll("input[name='button_B_068']")
-.on("change", change_068);
+.on("change", change_068)
+;
 
 //button function
 function change_068() {
-
 // button switch
 //transform to state 2
 if (data_set_068.index == 1) {
@@ -333,9 +321,6 @@ gfx_layer_1_068.selectAll(".circle_c")
 .transition().duration(400)
 .attr("cx", function(d) { return xScale_068(d.value5); })
 .style("fill", data_set_068.color_circle_5);
-// legend
-gfx_layer_2_068.attr("opacity", 0);
-gfx_layer_3_068.transition().delay(300).duration(100).attr("opacity", 1);
 
 //transform to state 1
 } else {
@@ -355,6 +340,7 @@ gfx_layer_1_068.selectAll(".circle_c")
 .transition().duration(400)
 .attr("cx", function(d) { return xScale_068(d.value3); })
 .style("fill", data_set_068.color_circle_3);
+
 // add circles of value 2
 gfx_layer_1_068.selectAll()
 .data(data_plot_068)
@@ -367,9 +353,6 @@ gfx_layer_1_068.selectAll()
 .transition().delay(300).duration(100)
 .attr("r", 6)
 .style("fill", data_set_068.color_circle_2);
-// legend
-gfx_layer_3_068.attr("opacity", 0);
-gfx_layer_2_068.transition().delay(300).duration(100).attr("opacity", 1);
 
 // close button switch
 };
