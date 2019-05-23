@@ -11,8 +11,8 @@ center_y: 270,
 position_headline: 25,
 position_source: 500,
 // ----------------------------------------------------------
-text_headline: "###",
-text_subheadline: "###",
+text_headline: "Smartphone Use",
+text_subheadline: "In emerging economies",
 text_source: "Source: Pew Research Center, 2019",
 // ----------------------------------------------------------
 color_bg: "#f9f4ef",
@@ -31,6 +31,16 @@ color_circle_2: "#ff8e4b",
 color_circle_3: "#da5404",
 color_circle_4: "#a399e7",
 color_circle_5: "#261697",
+// legend
+legend_1: [
+{"label": "18-29", "color": "#ffc19c"},
+{"label": "30-49", "color": "#ff8e4b"},
+{"label": "50+", "color": "#da5404"},
+],
+legend_2: [
+{"label": "Less education", "color": "#a399e7"},
+{"label": "More education", "color": "#261697"},
+],
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -68,11 +78,18 @@ var gfx_group_068 = container_margin_068.append("g");
 // create sub-groups for layers
 var gfx_layer_0_068 = gfx_group_068.append("g")
 .attr("class", "gfx_layer_0")
-.attr("transform", "translate(80,70)");
+.attr("transform", "translate(80,80)");
 var gfx_layer_1_068 = gfx_group_068.append("g")
 .attr("class", "gfx_layer_1")
-.attr("transform", "translate(80,70)");
-
+.attr("transform", "translate(80,80)");
+var gfx_layer_2_068 = gfx_group_068.append("g")
+.attr("class", "gfx_layer_2")
+//.attr("transform", "translate(80,80)")
+;
+var gfx_layer_3_068 = gfx_group_068.append("g")
+.attr("class", "gfx_layer_3")
+//.attr("transform", "translate(80,80)")
+;
 // ----------------------------------------------------------
 // create group for text
 var text_group_068 = container_margin_068.append("g");
@@ -110,9 +127,7 @@ layout_group_068.append("rect")
 //d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_area_067) {
 d3.csv("static/viz/068/data.csv", function(data_plot_068) {
 
-
-
-
+// LAYER 0 --------------------------------------------------
 // define X scale
 var xScale_068 = d3.scaleLinear()
 .domain([0, 100])
@@ -146,16 +161,13 @@ d3.selectAll(".Xaxis").selectAll(".tick").attr("opacity", 0);
 d3.selectAll(".tick_marker text").attr("fill", "#a5a7af").attr("font-weight", "400");
 */
 }
-
-
+// label for X axis
 gfx_layer_0_068.append("text")
 .attr("class","tick")
 .attr("transform","translate(" + (-30) + " ," + (data_set_068.plot_height + 18) + ")")
 .attr("fill", data_set_068.color_area_layout_axis)
 .style("text-anchor", "end")
 .text("%");
-
-
 
 
 // define Y scales
@@ -184,17 +196,7 @@ g.selectAll(".tick text").attr("text-anchor", "end").attr("x", -10)
 .style("fill", data_set_068.color_area_layout_axis);
 };
 
-
-
-
-
-
-
-
-
-
-
-
+// LAYER 1 --------------------------------------------------
 // add lines
 gfx_layer_1_068.selectAll()
 .data(data_plot_068)
@@ -242,7 +244,54 @@ gfx_layer_1_068.selectAll()
 
 
 
-//-------------------------------------------------------------------
+// ----------------------------------------------------------
+// LEGEND ---------------------------------------------------
+// ----------------------------------------------------------
+// LAYER 2 --------------------------------------------------
+
+gfx_layer_2_068.selectAll()
+.data(data_set_068.legend_1)
+.enter()
+.append("circle")
+.attr("cy", 76)
+.attr("cx", function(d,i){return 100 + i*70})
+.attr("r", 6)
+.style("fill",  function (d) { return d.color; })
+;
+
+/*
+gfx_layer_2_068.selectAll()
+.data(data_set_068.legend_1)
+.enter()
+.append("text")
+.attr("class", "legend_headline")
+.attr("y", 80)
+.attr("x", function(d,i){return 112 + i*70})
+.text(function (d) { return d.label; })
+;
+*/
+
+gfx_layer_2_068.selectAll()
+.data(data_set_068.legend_1)
+.enter()
+.append("text")
+.attr("class", "legend")
+.attr("y", 80)
+.attr("x", function(d,i){return 112 + i*70})
+.text(function (d) { return d.label; })
+;
+
+
+// LAYER 3 --------------------------------------------------
+
+
+
+
+
+
+// ----------------------------------------------------------
+// ANIMATION ------------------------------------------------
+// ----------------------------------------------------------
 //radio button on website
 d3.selectAll("input[name='button_B_068']")
 .on("change", change_068)
@@ -250,7 +299,7 @@ d3.selectAll("input[name='button_B_068']")
 
 //button function
 function change_068() {
-
+// button switch
 //transform to state 2
 if (data_set_068.index == 1) {
 data_set_068.index = 2;
@@ -265,15 +314,15 @@ gfx_layer_1_068.selectAll(".plot-line")
 .transition().duration(400)
 .attr("x1", function(d) { return xScale_068(d.value4); })
 .attr("x2", function(d) { return xScale_068(d.value5); })
-.attr("stroke", data_set_068.color_line_2)
+.attr("stroke", data_set_068.color_line_2);
 gfx_layer_1_068.selectAll(".circle_a")
 .transition().duration(400)
 .attr("cx", function(d) { return xScale_068(d.value4); })
-.style("fill", data_set_068.color_circle_4)
+.style("fill", data_set_068.color_circle_4);
 gfx_layer_1_068.selectAll(".circle_c")
 .transition().duration(400)
 .attr("cx", function(d) { return xScale_068(d.value5); })
-.style("fill", data_set_068.color_circle_5)
+.style("fill", data_set_068.color_circle_5);
 
 //transform to state 1
 } else {
@@ -284,15 +333,15 @@ gfx_layer_1_068.selectAll(".plot-line")
 .transition().duration(400)
 .attr("x1", function(d) { return xScale_068(d.value1); })
 .attr("x2", function(d) { return xScale_068(d.value3); })
-.attr("stroke", data_set_068.color_line_1)
+.attr("stroke", data_set_068.color_line_1);
 gfx_layer_1_068.selectAll(".circle_a")
 .transition().duration(400)
 .attr("cx", function(d) { return xScale_068(d.value1); })
-.style("fill", data_set_068.color_circle_1)
+.style("fill", data_set_068.color_circle_1);
 gfx_layer_1_068.selectAll(".circle_c")
 .transition().duration(400)
 .attr("cx", function(d) { return xScale_068(d.value3); })
-.style("fill", data_set_068.color_circle_3)
+.style("fill", data_set_068.color_circle_3);
 
 // add circles of value 2
 gfx_layer_1_068.selectAll()
@@ -305,15 +354,14 @@ gfx_layer_1_068.selectAll()
 .attr("r", 0)
 .transition().delay(300).duration(100)
 .attr("r", 6)
-.style("fill", data_set_068.color_circle_2)
-}
+.style("fill", data_set_068.color_circle_2);
 
+// close button switch
+};
 // close button function
 };
-
 // close csv read function
-})
-
+});
 
 
 
