@@ -24,11 +24,13 @@ index: 1,
 plot_width: 400,
 plot_height: 360,
 color_area_layout_axis: "#a5a7af",
+color_line_1: "#ff8e4b",
+color_line_2: "#5b4cc4",
 color_circle_1: "#ffc19c",
 color_circle_2: "#ff8e4b",
 color_circle_3: "#da5404",
 color_circle_4: "#a399e7",
-color_circle_5: "#5b4cc4",
+color_circle_5: "#261697",
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -125,6 +127,9 @@ gfx_layer_0_068.append("g")
 function customXAxis_068(g) {
 g.select(".domain").remove();
 g.selectAll(".tick line").attr("stroke", data_set_068.color_area_layout_axis)
+// scale ticks over full height
+.attr("y2", 0 - data_set_068.plot_height + 30)
+.attr("stroke-dasharray", "3,3").style("stroke-width", 1);
 g.selectAll("text").attr("fill", data_set_068.color_area_layout_axis);
 // highlight stuff
 /*
@@ -143,12 +148,22 @@ d3.selectAll(".tick_marker text").attr("fill", "#a5a7af").attr("font-weight", "4
 }
 
 
+gfx_layer_0_068.append("text")
+.attr("class","tick")
+.attr("transform","translate(" + (-30) + " ," + (data_set_068.plot_height + 18) + ")")
+.attr("fill", data_set_068.color_area_layout_axis)
+.style("text-anchor", "end")
+.text("%");
+
+
+
 
 // define Y scales
 var yScale_068 = d3.scaleBand()
 .range([ 0, data_set_068.plot_height ])
 .domain(data_plot_068.map(function(d) { return d.group; }))
-.padding(1);
+.padding(1)
+;
 // add Y axis
 gfx_layer_0_068.append("g")
 .call(d3.axisLeft(yScale_068))
@@ -156,9 +171,16 @@ gfx_layer_0_068.append("g")
 // change Y axis design
 function customYAxis_068(g) {
 g.select(".domain").remove();
-g.selectAll(".tick line").attr("stroke", data_set_068.color_area_layout_axis)
+g.selectAll(".tick line")
+// scale ticks over full width
+.attr("x2", data_set_068.plot_width)
+// fit axis line with gfx line
+.attr("transform", "translate(0,-0.5)")
+.attr("stroke", data_set_068.color_area_layout_axis)
 .attr("stroke-dasharray", "3,3").style("stroke-width", 1);
-g.selectAll(".tick text").attr("text-anchor", "end").attr("x", -6).attr("dy", -2)
+g.selectAll(".tick text").attr("text-anchor", "end").attr("x", -10)
+// fit values with axis line
+.attr("transform", "translate(0,-0.5)")
 .style("fill", data_set_068.color_area_layout_axis);
 };
 
@@ -183,7 +205,7 @@ gfx_layer_1_068.selectAll()
 .attr("x2", function(d) { return xScale_068(d.value3); })
 .attr("y1", function(d) { return yScale_068(d.group); })
 .attr("y2", function(d) { return yScale_068(d.group); })
-.attr("stroke", data_set_068.color_area_layout_axis)
+.attr("stroke", data_set_068.color_line_1)
 .attr("stroke-width", "1px")
 
 // add circles of value 1
@@ -243,6 +265,7 @@ gfx_layer_1_068.selectAll(".plot-line")
 .transition().duration(400)
 .attr("x1", function(d) { return xScale_068(d.value4); })
 .attr("x2", function(d) { return xScale_068(d.value5); })
+.attr("stroke", data_set_068.color_line_2)
 gfx_layer_1_068.selectAll(".circle_a")
 .transition().duration(400)
 .attr("cx", function(d) { return xScale_068(d.value4); })
@@ -261,6 +284,7 @@ gfx_layer_1_068.selectAll(".plot-line")
 .transition().duration(400)
 .attr("x1", function(d) { return xScale_068(d.value1); })
 .attr("x2", function(d) { return xScale_068(d.value3); })
+.attr("stroke", data_set_068.color_line_1)
 gfx_layer_1_068.selectAll(".circle_a")
 .transition().duration(400)
 .attr("cx", function(d) { return xScale_068(d.value1); })
