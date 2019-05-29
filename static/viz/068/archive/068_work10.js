@@ -11,11 +11,9 @@ center_y: 270,
 position_headline: 25,
 position_source: 500,
 // ----------------------------------------------------------
-text_headline: "Social Web Use",
-text_subheadline_1: "In emerging countries",
-text_subheadline_2: "By age group and education",
-text_source_1: "Source: Pew Research Center 2019,",
-text_source_2: "Mobile Technology and Its Social Impact Survey 2018",
+text_headline: "Smartphone Use",
+text_subheadline: "In emerging countries",
+text_source: "Source: Pew Research Center, 2019",
 // ----------------------------------------------------------
 color_bg: "#f9f4ef",
 color_basic: "#a399e7",
@@ -24,7 +22,7 @@ color_layout_stroke: "#f2e8df",
 // plot
 index: 1,
 plot_width: 394,
-plot_height: 350,
+plot_height: 360,
 color_area_layout_axis: "#a5a7af",
 color_line_1: "#ff8e4b",
 color_line_2: "#5b4cc4",
@@ -36,14 +34,14 @@ color_circle_5: "#261697",
 // legend
 legend_1: [
 {"label": "Age group", "position": 0},
-{"label": "50+", "position": 45},
-{"label": "30-49", "position": 79},
-{"label": "18-29", "position": 95},
+{"label": "50+", "position": 31},
+{"label": "30-49", "position": 61},
+{"label": "18-29", "position": 79},
 ],
 legend_2: [
 {"label": "Education", "position": 0},
-{"label": "more", "position": 54},
-{"label": "less", "position": 93},
+{"label": "less", "position": 38},
+{"label": "more", "position": 77},
 ],
 // text
 color_text_headline: "#2e2f33",
@@ -128,8 +126,8 @@ layout_group_068.append("rect")
 // GFX ------------------------------------------------------
 // ----------------------------------------------------------
 // parse the data
-d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_plot_068) {
-//d3.csv("static/viz/068/data.csv", function(data_plot_068) {
+//d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_plot_068) {
+d3.csv("static/viz/068/data.csv", function(data_plot_068) {
 
 // LAYER 0 --------------------------------------------------
 // define X scale
@@ -138,7 +136,7 @@ var xScale_068 = d3.scaleLinear()
 .range([ 0, data_set_068.plot_width]);
 // add X axis
 gfx_layer_0_068.append("g")
-//.attr("class","Xaxis")
+.attr("class","Xaxis")
 .attr("transform", "translate(0," + data_set_068.plot_height + ")")
 .call(d3.axisBottom(xScale_068).ticks(5))
 .call(customXAxis_068);
@@ -393,35 +391,22 @@ var text_headline_068 = text_group_068.append("text")
 .text(data_set_068.text_headline)
 .style("fill", data_set_068.color_text_headline);
 // create text "subheadline"
-var text_subheadline_1_068 = text_group_068.append("text")
-.attr("class", "text_subheadline_1")
+var text_subheadline_068 = text_group_068.append("text")
+.attr("class", "text_subheadline")
 .attr("x", 500)
-.attr("y", data_set_068.position_headline - 14)
+.attr("y", data_set_068.position_headline)
 .attr("text-anchor", "end")
-.text(data_set_068.text_subheadline_1)
-.style("fill", data_set_068.color_text_headline);
-var text_subheadline_2_068 = text_group_068.append("text")
-.attr("class", "text_subheadline_2")
-.attr("x", 500)
-.attr("y", data_set_068.position_headline + 4)
-.attr("text-anchor", "end")
-.text(data_set_068.text_subheadline_2)
+.text(data_set_068.text_subheadline)
 .style("fill", data_set_068.color_text_headline);
 // create text "source"
-var text_source_1_068 = text_group_068.append("text")
-.attr("class", "text_source")
-.attr("x", 500)
-.attr("y", data_set_068.position_source - 14)
-.attr("text-anchor", "end")
-.text(data_set_068.text_source_1)
-.style("fill", data_set_068.color_text_source);
-var text_source_2_068 = text_group_068.append("text")
+var text_source_068 = text_group_068.append("text")
 .attr("class", "text_source")
 .attr("x", 500)
 .attr("y", data_set_068.position_source)
 .attr("text-anchor", "end")
-.text(data_set_068.text_source_2)
+.text(data_set_068.text_source)
 .style("fill", data_set_068.color_text_source);
+
 
 
 
