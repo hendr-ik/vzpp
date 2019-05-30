@@ -12,7 +12,7 @@ position_headline: 25,
 position_source: 500,
 // ----------------------------------------------------------
 text_headline: "Social Web Use",
-text_subheadline_1: "In emerging countries",
+text_subheadline_1: "In emerging economies",
 text_subheadline_2: "By age group and education",
 text_source_1: "Source: Pew Research Center 2019,",
 text_source_2: "Mobile Technology and Its Social Impact Survey 2018",
@@ -42,8 +42,8 @@ legend_1: [
 ],
 legend_2: [
 {"label": "Education", "position": 0},
-{"label": "more", "position": 54},
-{"label": "less", "position": 93},
+{"label": "less", "position": 54},
+{"label": "more", "position": 93},
 ],
 // text
 color_text_headline: "#2e2f33",
