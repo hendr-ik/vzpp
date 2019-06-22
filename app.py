@@ -6,6 +6,9 @@ from flask import render_template
 
 app = Flask(__name__)
 
+@app.route("/069")
+def page_069():
+    return render_template('069.html')
 
 @app.route("/068")
 def page_068():
