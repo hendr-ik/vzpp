@@ -123,7 +123,7 @@ layout_group_069.append("rect")
 var element = d3.select(".gfx_layer_0");
 
 
-d3.xml("static/viz/069/sausage.svg", function(error, documentFragment) {
+d3.xml("static/viz/069/cookie.svg", function(error, documentFragment) {
 
 if (error) {console.log(error); return;}
 var svgNode = documentFragment.getElementsByTagName("svg")[0];
