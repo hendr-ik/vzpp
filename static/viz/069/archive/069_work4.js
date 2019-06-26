@@ -82,8 +82,7 @@ var gfx_group_069 = container_margin_069.append("g");
 // create sub-groups for layers
 var gfx_layer_0_069 = gfx_group_069.append("g")
 .attr("class", "gfx_layer_0")
-//.attr("transform", "translate(80,80)")
-;
+.attr("transform", "translate(80,80)");
 // ----------------------------------------------------------
 // create group for text
 var text_group_069 = container_margin_069.append("g");
@@ -120,14 +119,33 @@ layout_group_069.append("rect")
 
 
 
-var element = d3.select(".gfx_layer_0");
-
+var main_chart_div = d3.select("gfx_layer_0")
+.append("div");
+var svg;
 
 d3.xml("static/viz/069/sausage.svg", function(error, documentFragment) {
-
 if (error) {console.log(error); return;}
-var svgNode = documentFragment.getElementsByTagName("svg")[0];
-element.node().appendChild(svgNode);
+
+var svgNode = documentFragment
+.getElementsByTagName("svg")[0];
+
+main_chart_div.node().appendChild(svgNode);
+
+svg = main_chart_div.select("svg")
+
+svg.append("rect")
+.attr({
+class:"this is just a test rect",
+width:200,
+height:100,
+fill:"none",
+"stroke":"black",
+"stroke-width":5
+});
+
+svg.transition().duration(1000).delay(1000)
+.select("path")
+.attr("transform", "translate(80,80)");
 
 });
 
@@ -137,45 +155,6 @@ element.node().appendChild(svgNode);
 
 
 
-
-
-
-
-
-// ----------------------------------------------------------
-// ANIMATION ------------------------------------------------
-// ----------------------------------------------------------
-//radio button on website
-d3.selectAll("input[name='button_B_069']")
-.on("change", change_069);
-
-//button function
-function change_069() {
-
-// button switch
-//transform to state 2
-if (data_set_069.index == 1) {
-data_set_069.index = 2;
-
-
-d3.selectAll(".gfx_layer_0")
-.transition().duration(400)
-.attr("transform", "translate(80,80)")
-
-
-//transform to state 1
-} else {
-data_set_069.index = 1;
-
-
-d3.selectAll(".gfx_layer_0")
-.transition().duration(400)
-.attr("transform", "translate(0,0)")
-
-// close button switch
-};
-// close button function
-};
 
 
 
