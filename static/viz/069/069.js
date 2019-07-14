@@ -119,7 +119,7 @@ layout_group_069.append("rect")
 // ----------------------------------------------------------
 
 
-
+/*
 var element = d3.select(".gfx_layer_0");
 
 
@@ -130,7 +130,7 @@ var svgNode = documentFragment.getElementsByTagName("svg")[0];
 element.node().appendChild(svgNode);
 
 });
-
+*/
 
 
 
