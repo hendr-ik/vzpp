@@ -21,30 +21,9 @@ color_bg: "#f9f4ef",
 color_basic: "#a399e7",
 color_layout_stroke: "#f2e8df",
 // ----------------------------------------------------------
-// plot
-index: 1,
-plot_width: 394,
-plot_height: 350,
-color_area_layout_axis: "#a5a7af",
-color_line_1: "#ff8e4b",
-color_line_2: "#5b4cc4",
-color_circle_1: "#ffc19c",
-color_circle_2: "#ff8e4b",
-color_circle_3: "#da5404",
-color_circle_4: "#a399e7",
-color_circle_5: "#261697",
-// legend
-legend_1: [
-{"label": "Age group", "position": 0},
-{"label": "50+", "position": 45},
-{"label": "30-49", "position": 79},
-{"label": "18-29", "position": 95},
-],
-legend_2: [
-{"label": "Education", "position": 0},
-{"label": "less", "position": 54},
-{"label": "more", "position": 93},
-],
+// bars
+width: 400,
+height: 360,
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -82,7 +61,11 @@ var gfx_group_069 = container_margin_069.append("g");
 // create sub-groups for layers
 var gfx_layer_0_069 = gfx_group_069.append("g")
 .attr("class", "gfx_layer_0")
-//.attr("transform", "translate(80,80)")
+.attr("transform", "translate(80,80)")
+;
+var gfx_layer_1_069 = gfx_group_069.append("g")
+.attr("class", "gfx_layer_1")
+.attr("transform", "translate(80,80)")
 ;
 // ----------------------------------------------------------
 // create group for text
@@ -119,7 +102,7 @@ layout_group_069.append("rect")
 // ----------------------------------------------------------
 
 
-/*
+/* import svg
 var element = d3.select(".gfx_layer_0");
 
 
@@ -132,6 +115,65 @@ element.node().appendChild(svgNode);
 });
 */
 
+
+// LAYER 0 --------------------------------------------------
+// Parse the Data
+d3.csv("static/viz/069/data_companies.csv", function(data) {
+
+// Add X axis
+var xScale_A_069 = d3.scaleLinear()
+.domain([0, 86])
+.range([ 0, data_set_069.width]);
+
+// Y axis
+var yScale_A_069 = d3.scaleBand()
+.range([ 0, data_set_069.height ])
+.domain(data.map(function(d) { return d.company; }))
+.padding(.1);
+gfx_layer_0_069.append("g")
+.call(d3.axisLeft(yScale_A_069))
+
+//Bars
+gfx_layer_0_069.selectAll()
+.data(data)
+.enter()
+.append("rect")
+.attr("x", xScale_A_069(0) )
+.attr("y", function(d) { return yScale_A_069(d.company); })
+.attr("width", function(d) { return xScale_A_069(d.value); })
+.attr("height", yScale_A_069.bandwidth() )
+.attr("fill", "#69b3a2")
+})
+
+
+// LAYER 1 --------------------------------------------------
+// Parse the Data
+d3.csv("static/viz/069/data_scripts.csv", function(data) {
+
+// Add X axis
+var xScale_B_069 = d3.scaleLinear()
+.domain([0, 46])
+.range([ 0, data_set_069.width]);
+
+// Y axis
+var yScale_B_069 = d3.scaleBand()
+.range([ 0, data_set_069.height ])
+.domain(data.map(function(d) { return d.script; }))
+.padding(.1);
+gfx_layer_1_069.append("g")
+.call(d3.axisLeft(yScale_B_069))
+
+//Bars
+gfx_layer_1_069.selectAll()
+.data(data)
+.enter()
+.append("rect")
+.attr("x", xScale_B_069(0) )
+.attr("y", function(d) { return yScale_B_069(d.script); })
+.attr("width", function(d) { return xScale_B_069(d.value); })
+.attr("height", yScale_B_069.bandwidth() )
+.attr("fill", "#69b3a2")
+})
 
 
 
@@ -158,19 +200,16 @@ if (data_set_069.index == 1) {
 data_set_069.index = 2;
 
 
-d3.selectAll(".gfx_layer_0")
-.transition().duration(400)
-.attr("transform", "translate(80,80)")
-
+d3.selectAll(".gfx_layer_0").transition().duration(400).attr("opacity", 1)
+d3.selectAll(".gfx_layer_1").transition().duration(400).attr("opacity", 0)
 
 //transform to state 1
 } else {
 data_set_069.index = 1;
 
 
-d3.selectAll(".gfx_layer_0")
-.transition().duration(400)
-.attr("transform", "translate(0,0)")
+d3.selectAll(".gfx_layer_0").transition().duration(400).attr("opacity", 0)
+d3.selectAll(".gfx_layer_1").transition().duration(400).attr("opacity", 1)
 
 // close button switch
 };
