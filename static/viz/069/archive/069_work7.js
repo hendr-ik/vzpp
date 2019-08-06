@@ -22,10 +22,8 @@ color_basic: "#a399e7",
 color_layout_stroke: "#f2e8df",
 // ----------------------------------------------------------
 // bars
-width_A: 400,
-height_A: 360,
-width_B: 310,
-height_B: 360,
+width: 400,
+height: 360,
 // text
 color_text_headline: "#2e2f33",
 color_text_source: "#e4cfbb"
@@ -63,11 +61,11 @@ var gfx_group_069 = container_margin_069.append("g");
 // create sub-groups for layers
 var gfx_layer_0_069 = gfx_group_069.append("g")
 .attr("class", "gfx_layer_0")
-.attr("transform", "translate(90,80)")
+.attr("transform", "translate(80,80)")
 ;
 var gfx_layer_1_069 = gfx_group_069.append("g")
 .attr("class", "gfx_layer_1")
-.attr("transform", "translate(180,80)")
+.attr("transform", "translate(80,80)")
 ;
 // ----------------------------------------------------------
 // create group for text
@@ -118,105 +116,69 @@ element.node().appendChild(svgNode);
 */
 
 
-
-// Parse the Data
-d3.csv("static/viz/069/data.csv", function(data) {
-
-
 // LAYER 0 --------------------------------------------------
-// X scale
+// Parse the Data
+d3.csv("static/viz/069/data_companies.csv", function(data) {
+
+// Add X axis
 var xScale_A_069 = d3.scaleLinear()
 .domain([0, 86])
-.range([0,data_set_069.width_A]);
+.range([ 0, data_set_069.width]);
 
-// Y scale
+// Y axis
 var yScale_A_069 = d3.scaleBand()
-.range([0,data_set_069.height_A])
-//.domain(data.map(function(d) { return d.company; }))
-// fix for data map bug
-.domain(['Google', 'Facebook', 'comScore', 'Twitter', 'Yandex'])
+.range([ 0, data_set_069.height ])
+.domain(data.map(function(d) { return d.company; }))
 .padding(.1);
-// add Y axis
 gfx_layer_0_069.append("g")
-.attr("class", "Yaxis_069")
 .call(d3.axisLeft(yScale_A_069))
-.call(customYAxisA_069);
-// change Y axis design
-function customYAxisA_069(g) {
-g.select(".domain").remove();
-// move ticks up
-d3.select(".gfx_layer_0 g").attr("transform", "translate(0,-16)");
-g.selectAll(".tick line").remove();
-};
 
 //Bars
 gfx_layer_0_069.selectAll()
-// filter the data for first 5 entries of csv file
-.data(data.filter(function(d){
-if( d.count < 6 ){return d;}
-}))
+.data(data)
 .enter()
 .append("rect")
-.attr("class", "rect-A")
 .attr("x", xScale_A_069(0) )
 .attr("y", function(d) { return yScale_A_069(d.company); })
-.attr("width", function(d) { return xScale_A_069(d.valueA); })
+.attr("width", function(d) { return xScale_A_069(d.value); })
 .attr("height", yScale_A_069.bandwidth() )
-.attr("fill", function(d) { return d.colorA });
-
-//Values on bars
-gfx_layer_0_069.selectAll()
-// filter the data for first 5 entries of csv file
-.data(data.filter(function(d){
-if( d.count < 6 ){return d;}
-}))
-.enter()
-.append("text")
-.attr("class", "display_069")
-.attr("x", function(d) { return -6 + xScale_A_069(d.valueA); })
-.attr("y", function(d) { return 20 + yScale_A_069(d.company); })
-.attr("text-anchor", "end")
-.text(function(d) { return d.valueA + "%" })
-.attr("fill", "#fff");
-
-
+.attr("fill", "#69b3a2")
+})
 
 
 // LAYER 1 --------------------------------------------------
-// X scale
+// Parse the Data
+d3.csv("static/viz/069/data_scripts.csv", function(data) {
+
+// Add X axis
 var xScale_B_069 = d3.scaleLinear()
 .domain([0, 46])
-.range([0,data_set_069.width_B]);
+.range([ 0, data_set_069.width]);
 
-// Y scale
+// Y axis
 var yScale_B_069 = d3.scaleBand()
-.range([0,data_set_069.height_B])
+.range([ 0, data_set_069.height ])
 .domain(data.map(function(d) { return d.script; }))
-.padding(.2);
-
-// add Y axis
+.padding(.1);
 gfx_layer_1_069.append("g")
 .call(d3.axisLeft(yScale_B_069))
-.call(customYAxisB_069);
-// change Y axis design
-function customYAxisB_069(g) {
-g.select(".domain").remove();
-// move ticks up
-d3.select(".gfx_layer_1 g").attr("transform", "translate(0,-4)");
-g.selectAll(".tick line").remove();
-};
 
 //Bars
 gfx_layer_1_069.selectAll()
 .data(data)
 .enter()
 .append("rect")
-.attr("class", "rect-B")
 .attr("x", xScale_B_069(0) )
 .attr("y", function(d) { return yScale_B_069(d.script); })
-.attr("width", function(d) { return xScale_B_069(d.valueB); })
+.attr("width", function(d) { return xScale_B_069(d.value); })
 .attr("height", yScale_B_069.bandwidth() )
-.attr("fill", function(d) { return d.colorB });
+.attr("fill", "#69b3a2")
+})
+
+
+
+
+
 
 
 
@@ -225,13 +187,6 @@ gfx_layer_1_069.selectAll()
 // ----------------------------------------------------------
 // ANIMATION ------------------------------------------------
 // ----------------------------------------------------------
-
-// preset states
-d3.selectAll(".gfx_layer_0").attr("opacity", 1)
-d3.selectAll(".gfx_layer_1").attr("opacity", 0)
-gfx_layer_1_069.selectAll(".rect-B")
-.attr("width", function(d) { return 0; });
-
 //radio button on website
 d3.selectAll("input[name='button_B_069']")
 .on("change", change_069);
@@ -240,55 +195,27 @@ d3.selectAll("input[name='button_B_069']")
 function change_069() {
 
 // button switch
-//transform to state 2 -----------------------------------------------------
+//transform to state 2
 if (data_set_069.index == 1) {
 data_set_069.index = 2;
 
-// layer_1 animations
-gfx_layer_1_069.selectAll(".rect-B")
-.transition().duration(200)
-.attr("width", function(d) { return 0; });
-d3.selectAll(".gfx_layer_1")
-.transition().delay(200).duration(100)
-.attr("opacity", 0);
-// layer_0 animations
-d3.selectAll(".gfx_layer_0")
-.transition().delay(300).duration(100)
-.attr("opacity", 1);
-gfx_layer_0_069.selectAll(".rect-A")
-.transition().delay(400).duration(200)
-.attr("width", function(d) { return xScale_A_069(d.valueA); });
 
+d3.selectAll(".gfx_layer_0").transition().duration(400).attr("opacity", 1)
+d3.selectAll(".gfx_layer_1").transition().duration(400).attr("opacity", 0)
 
-
-//transform to state 1 -----------------------------------------------------
+//transform to state 1
 } else {
 data_set_069.index = 1;
 
-// layer_0 animations
-gfx_layer_0_069.selectAll(".rect-A")
-.transition().duration(200)
-.attr("width", function(d) { return 0; });
-d3.selectAll(".gfx_layer_0")
-.transition().delay(200).duration(100)
-.attr("opacity", 0);
-// layer_1 animations
-d3.selectAll(".gfx_layer_1")
-.transition().delay(300).duration(100)
-.attr("opacity", 1);
-gfx_layer_1_069.selectAll(".rect-B")
-.transition().delay(400).duration(200)
-.attr("width", function(d) { return xScale_B_069(d.valueB); });
 
-
-
+d3.selectAll(".gfx_layer_0").transition().duration(400).attr("opacity", 0)
+d3.selectAll(".gfx_layer_1").transition().duration(400).attr("opacity", 1)
 
 // close button switch
 };
 // close button function
 };
-// close csv read function
-});
+
 
 
 

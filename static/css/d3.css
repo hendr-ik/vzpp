@@ -80,6 +80,16 @@ order: 2;
 
 
 /* Typo -------------------------------- */
+/* 069 -------------------------------- */
+.Yaxis_069 .tick {
+font-size: var(--font-size_16);
+}
+
+.display_069 {
+font-size: var(--font-size_16);
+font-weight: 600;
+}
+
 /* 067 -------------------------------- */
 .sticker {
 font-size: var(--font-size_16);
@@ -367,6 +377,16 @@ height: 270px;
 
 
 /* Typo */
+/* 069 */
+.Yaxis_069 .tick {
+font-size: var(--font-size_16_mobile);
+}
+
+.display_069 {
+font-size: var(--font-size_16_mobile);
+font-weight: 600;
+}
+
 /* 067 */
 .sticker {
 font-size: var(--font-size_16_mobile);
