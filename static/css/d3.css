@@ -85,11 +85,15 @@ order: 2;
 font-size: var(--font-size_16);
 }
 
-.display_069 {
+.displayA_069 {
 font-size: var(--font-size_16);
 font-weight: 600;
 }
 
+.displayB_069 {
+font-size: var(--font-size_12);
+font-weight: 600;
+}
 /* 067 -------------------------------- */
 .sticker {
 font-size: var(--font-size_16);
@@ -382,9 +386,12 @@ height: 270px;
 font-size: var(--font-size_16_mobile);
 }
 
-.display_069 {
+.displayA_069 {
 font-size: var(--font-size_16_mobile);
-font-weight: 600;
+}
+
+.displayB_069 {
+font-size: var(--font-size_12_mobile);
 }
 
 /* 067 */

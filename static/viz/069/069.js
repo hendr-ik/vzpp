@@ -11,15 +11,17 @@ center_y: 270,
 position_headline: 25,
 position_source: 500,
 // ----------------------------------------------------------
-text_headline: "###",
-text_subheadline_1: "###",
-text_subheadline_2: "###",
-text_source_1: "Source: ###",
-text_source_2: "###",
+text_headline: "Tracking the User",
+text_subheadline_A_1: "Tracking Companies",
+text_subheadline_A_2: "Reach Top 5",
+text_subheadline_B_1: "Tracking Scripts",
+text_subheadline_B_2: "Reach Top 10",
+text_source: "Source: Cliqz 2018",
 // ----------------------------------------------------------
 color_bg: "#f9f4ef",
 color_basic: "#a399e7",
 color_layout_stroke: "#f2e8df",
+color_line: "#ff8e4b",
 // ----------------------------------------------------------
 // bars
 width_A: 400,
@@ -68,6 +70,10 @@ var gfx_layer_0_069 = gfx_group_069.append("g")
 var gfx_layer_1_069 = gfx_group_069.append("g")
 .attr("class", "gfx_layer_1")
 .attr("transform", "translate(180,80)")
+;
+var gfx_layer_2_069 = gfx_group_069.append("g")
+.attr("class", "gfx_layer_2")
+//.attr("transform", "translate(180,80)")
 ;
 // ----------------------------------------------------------
 // create group for text
@@ -172,7 +178,7 @@ if( d.count < 6 ){return d;}
 }))
 .enter()
 .append("text")
-.attr("class", "display_069")
+.attr("class", "displayA_069")
 .attr("x", function(d) { return -6 + xScale_A_069(d.valueA); })
 .attr("y", function(d) { return 20 + yScale_A_069(d.company); })
 .attr("text-anchor", "end")
@@ -218,6 +224,39 @@ gfx_layer_1_069.selectAll()
 .attr("height", yScale_B_069.bandwidth() )
 .attr("fill", function(d) { return d.colorB });
 
+//Values on bars
+gfx_layer_1_069.selectAll()
+// filter the data for first 5 entries of csv file
+.data(data)
+.enter()
+.append("text")
+.attr("class", "displayB_069")
+.attr("x", function(d) { return -6 + xScale_B_069(d.valueB); })
+.attr("y", function(d) { return 16 + yScale_B_069(d.script); })
+.attr("text-anchor", "end")
+.text(function(d) { return d.valueB + "%" })
+.attr("fill", "#fff");
+
+
+// LAYER 2 --------------------------------------------------
+gfx_layer_2_069.selectAll()
+.append("line")
+.attr("class", "plot-line")
+.attr("x1", 50)
+.attr("x2", 100)
+.attr("y1", 50)
+.attr("y2", 100)
+.attr("stroke", data_set_069.color_line)
+.attr("stroke-width", "1px");
+
+
+
+
+
+
+
+
+
 
 
 
@@ -231,6 +270,8 @@ d3.selectAll(".gfx_layer_0").attr("opacity", 1)
 d3.selectAll(".gfx_layer_1").attr("opacity", 0)
 gfx_layer_1_069.selectAll(".rect-B")
 .attr("width", function(d) { return 0; });
+gfx_layer_1_069.selectAll(".displayB_069")
+.attr("opacity", 0);
 
 //radio button on website
 d3.selectAll("input[name='button_B_069']")
@@ -245,19 +286,29 @@ if (data_set_069.index == 1) {
 data_set_069.index = 2;
 
 // layer_1 animations
+gfx_layer_1_069.selectAll(".displayB_069")
+.attr("opacity", 0);
 gfx_layer_1_069.selectAll(".rect-B")
-.transition().duration(200)
+.transition().duration(100)
 .attr("width", function(d) { return 0; });
 d3.selectAll(".gfx_layer_1")
-.transition().delay(200).duration(100)
+.transition().delay(100).duration(100)
 .attr("opacity", 0);
+// Subheadline animations
+d3.select(".text_subheadline_1")
+.text(data_set_069.text_subheadline_A_1);
+d3.select(".text_subheadline_2")
+.text(data_set_069.text_subheadline_A_2);
 // layer_0 animations
 d3.selectAll(".gfx_layer_0")
-.transition().delay(300).duration(100)
+.transition().delay(200).duration(100)
 .attr("opacity", 1);
 gfx_layer_0_069.selectAll(".rect-A")
-.transition().delay(400).duration(200)
+.transition().delay(300).duration(200)
 .attr("width", function(d) { return xScale_A_069(d.valueA); });
+gfx_layer_0_069.selectAll(".displayA_069")
+.transition().delay(450).duration(0)
+.attr("opacity", 1);
 
 
 
@@ -266,19 +317,29 @@ gfx_layer_0_069.selectAll(".rect-A")
 data_set_069.index = 1;
 
 // layer_0 animations
+gfx_layer_0_069.selectAll(".displayA_069")
+.attr("opacity", 0);
 gfx_layer_0_069.selectAll(".rect-A")
-.transition().duration(200)
+.transition().duration(100)
 .attr("width", function(d) { return 0; });
 d3.selectAll(".gfx_layer_0")
-.transition().delay(200).duration(100)
+.transition().delay(100).duration(100)
 .attr("opacity", 0);
+// Subheadline animations
+d3.select(".text_subheadline_1")
+.text(data_set_069.text_subheadline_B_1);
+d3.select(".text_subheadline_2")
+.text(data_set_069.text_subheadline_B_2);
 // layer_1 animations
 d3.selectAll(".gfx_layer_1")
-.transition().delay(300).duration(100)
+.transition().delay(200).duration(100)
 .attr("opacity", 1);
 gfx_layer_1_069.selectAll(".rect-B")
-.transition().delay(400).duration(200)
+.transition().delay(300).duration(200)
 .attr("width", function(d) { return xScale_B_069(d.valueB); });
+gfx_layer_1_069.selectAll(".displayB_069")
+.transition().delay(450).duration(0)
+.attr("opacity", 1);
 
 
 
@@ -315,29 +376,22 @@ var text_subheadline_1_069 = text_group_069.append("text")
 .attr("x", 500)
 .attr("y", data_set_069.position_headline - 14)
 .attr("text-anchor", "end")
-.text(data_set_069.text_subheadline_1)
+.text(data_set_069.text_subheadline_A_1)
 .style("fill", data_set_069.color_text_headline);
 var text_subheadline_2_069 = text_group_069.append("text")
 .attr("class", "text_subheadline_2")
 .attr("x", 500)
 .attr("y", data_set_069.position_headline + 4)
 .attr("text-anchor", "end")
-.text(data_set_069.text_subheadline_2)
+.text(data_set_069.text_subheadline_A_2)
 .style("fill", data_set_069.color_text_headline);
 // create text "source"
-var text_source_1_069 = text_group_069.append("text")
-.attr("class", "text_source")
-.attr("x", 500)
-.attr("y", data_set_069.position_source - 14)
-.attr("text-anchor", "end")
-.text(data_set_069.text_source_1)
-.style("fill", data_set_069.color_text_source);
 var text_source_2_069 = text_group_069.append("text")
 .attr("class", "text_source")
 .attr("x", 500)
 .attr("y", data_set_069.position_source)
 .attr("text-anchor", "end")
-.text(data_set_069.text_source_2)
+.text(data_set_069.text_source)
 .style("fill", data_set_069.color_text_source);
 
 
