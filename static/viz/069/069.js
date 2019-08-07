@@ -225,7 +225,6 @@ var line_069 = d3.select(".gfx_layer_2")
 .attr("stroke-dasharray", "3,3").style("stroke-width", 1)
 .attr("stroke", data_set_069.color_axis_line);
 
-/*
 // LAYER 3 --------------------------------------------------
 // import illustration svg
 var illustration_069 = d3.select(".gfx_layer_3_sub");
@@ -235,7 +234,6 @@ if (error) {console.log(error); return;}
 var svgNode_069 = documentFragment.getElementsByTagName("svg")[0];
 illustration_069.node().appendChild(svgNode_069);
 });
-*/
 
 
 
@@ -243,8 +241,8 @@ illustration_069.node().appendChild(svgNode_069);
 // ANIMATION ------------------------------------------------
 // ----------------------------------------------------------
 // preset states
-d3.selectAll(".gfx_layer_0").attr("opacity", 1)
-d3.selectAll(".gfx_layer_1").attr("opacity", 0)
+d3.select("#canvas_069").selectAll(".gfx_layer_0").attr("opacity", 1)
+d3.select("#canvas_069").selectAll(".gfx_layer_1").attr("opacity", 0)
 gfx_layer_1_069.selectAll(".rect_B")
 .attr("width", function(d) { return 0; });
 gfx_layer_1_069.selectAll(".displayB_069")
@@ -265,7 +263,7 @@ gfx_layer_1_069.selectAll(".displayB_069")
 gfx_layer_1_069.selectAll(".rect_B")
 .transition().duration(100)
 .attr("width", function(d) { return 0; });
-d3.selectAll(".gfx_layer_1")
+d3.select(".gfx_layer_1")
 .transition().delay(100).duration(0)
 .attr("opacity", 0);
 // Subheadline animations
@@ -279,11 +277,11 @@ gfx_layer_2_069.selectAll(".axis_line")
 .attr("x1", 90)
 .attr("x2", 90);
 // illustration animations
-d3.selectAll(".gfx_layer_3")
+d3.select(".gfx_layer_3")
 .transition().delay(200).duration(200)
 .attr("transform", "translate(500,500)scale(1)");
 // layer_0 animations
-d3.selectAll(".gfx_layer_0")
+d3.select(".gfx_layer_0")
 .transition().delay(300).duration(100)
 .attr("opacity", 1);
 gfx_layer_0_069.selectAll(".rect_A")
@@ -302,7 +300,7 @@ gfx_layer_0_069.selectAll(".displayA_069")
 gfx_layer_0_069.selectAll(".rect_A")
 .transition().duration(100)
 .attr("width", function(d) { return 0; });
-d3.selectAll(".gfx_layer_0")
+d3.select(".gfx_layer_0")
 .transition().delay(100).duration(0)
 .attr("opacity", 0);
 // Subheadline animations
@@ -316,11 +314,11 @@ gfx_layer_2_069.selectAll(".axis_line")
 .attr("x1", 180)
 .attr("x2", 180);
 // illustration animations
-d3.selectAll(".gfx_layer_3")
+d3.select(".gfx_layer_3")
 .transition().delay(200).duration(200)
 .attr("transform", "translate(500,450)scale(0.79)");
 // layer_1 animations
-d3.selectAll(".gfx_layer_1")
+d3.select(".gfx_layer_1")
 .transition().delay(400).duration(100)
 .attr("opacity", 1);
 gfx_layer_1_069.selectAll(".rect_B")
