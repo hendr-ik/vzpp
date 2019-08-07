@@ -11,7 +11,7 @@ center_y: 270,
 position_headline: 25,
 position_source: 500,
 // ----------------------------------------------------------
-text_headline: "Tracking Users",
+text_headline: "Tracking the User",
 text_subheadline_A_1: "Tracking Companies",
 text_subheadline_A_2: "Reach Top 5",
 text_subheadline_B_1: "Tracking Scripts",
@@ -65,20 +65,27 @@ var gfx_group_069 = container_margin_069.append("g");
 // create sub-groups for layers
 var gfx_layer_0_069 = gfx_group_069.append("g")
 .attr("class", "gfx_layer_0")
-.attr("transform", "translate(90,80)");
+.attr("transform", "translate(90,80)")
+;
 var gfx_layer_1_069 = gfx_group_069.append("g")
 .attr("class", "gfx_layer_1")
-.attr("transform", "translate(180,80)");
+.attr("transform", "translate(180,80)")
+;
 var gfx_layer_2_069 = gfx_group_069.append("g")
-.attr("class", "gfx_layer_2");
+.attr("class", "gfx_layer_2")
+//.attr("transform", "translate(180,80)")
+;
 // move 0 point for scaling
 var gfx_layer_3_069 = gfx_group_069.append("g")
 .attr("class", "gfx_layer_3")
-.attr("transform", "translate(500,500)");
+.attr("transform", "translate(500,500)")
+;
 // sub g for illustration
 gfx_layer_3_069.append("g")
 .attr("class", "gfx_layer_3_sub")
-.attr("transform", "translate(-310,-330)");
+.attr("transform", "translate(-310,-330)")
+;
+
 // ----------------------------------------------------------
 // create group for text
 var text_group_069 = container_margin_069.append("g");
@@ -112,19 +119,21 @@ layout_group_069.append("rect")
 // ----------------------------------------------------------
 // GFX ------------------------------------------------------
 // ----------------------------------------------------------
+
 // Parse the Data
-//d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_069) {
-d3.csv("static/viz/069/data.csv", function(data_069) {
+d3.csv("static/viz/069/data.csv", function(data) {
+
 
 // LAYER 0 --------------------------------------------------
 // X scale
 var xScale_A_069 = d3.scaleLinear()
 .domain([0, 86])
 .range([0,data_set_069.width_A]);
+
 // Y scale
 var yScale_A_069 = d3.scaleBand()
 .range([0,data_set_069.height_A])
-//.domain(data_069.map(function(d) { return d.company; }))
+//.domain(data.map(function(d) { return d.company; }))
 // fix for data map bug
 .domain(['Google', 'Facebook', 'comScore', 'Twitter', 'Yandex'])
 .padding(.1);
@@ -140,24 +149,26 @@ g.select(".domain").remove();
 d3.select(".gfx_layer_0 g").attr("transform", "translate(0,-16)");
 g.selectAll(".tick line").remove();
 };
+
 // Bars
 gfx_layer_0_069.selectAll()
 // filter the data for first 5 entries of csv file
-.data(data_069.filter(function(d){
+.data(data.filter(function(d){
 if( d.count < 6 ){return d;}
 }))
 .enter()
 .append("rect")
-.attr("class", "rect_A")
+.attr("class", "rect-A")
 .attr("x", xScale_A_069(0) )
 .attr("y", function(d) { return yScale_A_069(d.company); })
 .attr("width", function(d) { return xScale_A_069(d.valueA); })
 .attr("height", yScale_A_069.bandwidth() )
 .attr("fill", function(d) { return d.colorA });
+
 // Values on bars
 gfx_layer_0_069.selectAll()
 // filter the data for first 5 entries of csv file
-.data(data_069.filter(function(d){
+.data(data.filter(function(d){
 if( d.count < 6 ){return d;}
 }))
 .enter()
@@ -169,16 +180,19 @@ if( d.count < 6 ){return d;}
 .text(function(d) { return d.valueA + "%" })
 .attr("fill", "#fff");
 
+
 // LAYER 1 --------------------------------------------------
 // X scale
 var xScale_B_069 = d3.scaleLinear()
 .domain([0, 46])
 .range([0,data_set_069.width_B]);
+
 // Y scale
 var yScale_B_069 = d3.scaleBand()
 .range([0,data_set_069.height_B])
-.domain(data_069.map(function(d) { return d.script; }))
+.domain(data.map(function(d) { return d.script; }))
 .padding(.2);
+
 // add Y axis
 gfx_layer_1_069.append("g")
 .call(d3.axisLeft(yScale_B_069))
@@ -190,20 +204,23 @@ g.select(".domain").remove();
 d3.select(".gfx_layer_1 g").attr("transform", "translate(0,-4)");
 g.selectAll(".tick line").remove();
 };
+
 // Bars
 gfx_layer_1_069.selectAll()
-.data(data_069)
+.data(data)
 .enter()
 .append("rect")
-.attr("class", "rect_B")
+.attr("class", "rect-B")
 .attr("x", xScale_B_069(0) )
 .attr("y", function(d) { return yScale_B_069(d.script); })
 .attr("width", function(d) { return xScale_B_069(d.valueB); })
 .attr("height", yScale_B_069.bandwidth() )
 .attr("fill", function(d) { return d.colorB });
+
 // Values on bars
 gfx_layer_1_069.selectAll()
-.data(data_069)
+// filter the data for first 5 entries of csv file
+.data(data)
 .enter()
 .append("text")
 .attr("class", "displayB_069")
@@ -212,6 +229,7 @@ gfx_layer_1_069.selectAll()
 .attr("text-anchor", "end")
 .text(function(d) { return d.valueB + "%" })
 .attr("fill", "#fff");
+
 
 // LAYER 2 --------------------------------------------------
 // Axis line
@@ -225,33 +243,34 @@ var line_069 = d3.select(".gfx_layer_2")
 .attr("stroke-dasharray", "3,3").style("stroke-width", 1)
 .attr("stroke", data_set_069.color_axis_line);
 
-/*
-// LAYER 3 --------------------------------------------------
+// LAYER 2 --------------------------------------------------
 // import illustration svg
 var illustration_069 = d3.select(".gfx_layer_3_sub");
-//d3.xml("http://niefeld.com/static/viz/069/illustration.svg", function(error, documentFragment) {
 d3.xml("static/viz/069/illustration.svg", function(error, documentFragment) {
 if (error) {console.log(error); return;}
-var svgNode_069 = documentFragment.getElementsByTagName("svg")[0];
-illustration_069.node().appendChild(svgNode_069);
+var svgNode = documentFragment.getElementsByTagName("svg")[0];
+illustration_069.node().appendChild(svgNode);
 });
-*/
+
 
 
 
 // ----------------------------------------------------------
 // ANIMATION ------------------------------------------------
 // ----------------------------------------------------------
+
 // preset states
 d3.selectAll(".gfx_layer_0").attr("opacity", 1)
 d3.selectAll(".gfx_layer_1").attr("opacity", 0)
-gfx_layer_1_069.selectAll(".rect_B")
+gfx_layer_1_069.selectAll(".rect-B")
 .attr("width", function(d) { return 0; });
 gfx_layer_1_069.selectAll(".displayB_069")
 .attr("opacity", 0);
+
 //radio button on website
 d3.selectAll("input[name='button_B_069']")
 .on("change", change_069);
+
 //button function
 function change_069() {
 
@@ -259,10 +278,11 @@ function change_069() {
 //transform to state 2 -----------------------------------------------------
 if (data_set_069.index == 1) {
 data_set_069.index = 2;
+
 // layer_1 animations
 gfx_layer_1_069.selectAll(".displayB_069")
 .attr("opacity", 0);
-gfx_layer_1_069.selectAll(".rect_B")
+gfx_layer_1_069.selectAll(".rect-B")
 .transition().duration(100)
 .attr("width", function(d) { return 0; });
 d3.selectAll(".gfx_layer_1")
@@ -286,20 +306,23 @@ d3.selectAll(".gfx_layer_3")
 d3.selectAll(".gfx_layer_0")
 .transition().delay(300).duration(100)
 .attr("opacity", 1);
-gfx_layer_0_069.selectAll(".rect_A")
+gfx_layer_0_069.selectAll(".rect-A")
 .transition().delay(400).duration(300)
 .attr("width", function(d) { return xScale_A_069(d.valueA); });
 gfx_layer_0_069.selectAll(".displayA_069")
 .transition().delay(650).duration(0)
 .attr("opacity", 1);
 
+
+
 //transform to state 1 -----------------------------------------------------
 } else {
 data_set_069.index = 1;
+
 // layer_0 animations
 gfx_layer_0_069.selectAll(".displayA_069")
 .attr("opacity", 0);
-gfx_layer_0_069.selectAll(".rect_A")
+gfx_layer_0_069.selectAll(".rect-A")
 .transition().duration(100)
 .attr("width", function(d) { return 0; });
 d3.selectAll(".gfx_layer_0")
@@ -323,12 +346,15 @@ d3.selectAll(".gfx_layer_3")
 d3.selectAll(".gfx_layer_1")
 .transition().delay(400).duration(100)
 .attr("opacity", 1);
-gfx_layer_1_069.selectAll(".rect_B")
+gfx_layer_1_069.selectAll(".rect-B")
 .transition().delay(400).duration(300)
 .attr("width", function(d) { return xScale_B_069(d.valueB); });
 gfx_layer_1_069.selectAll(".displayB_069")
 .transition().delay(650).duration(0)
 .attr("opacity", 1);
+
+
+
 
 // close button switch
 };
@@ -336,6 +362,13 @@ gfx_layer_1_069.selectAll(".displayB_069")
 };
 // close csv read function
 });
+
+
+
+
+
+
+
 
 
 
@@ -372,7 +405,6 @@ var text_source_2_069 = text_group_069.append("text")
 .attr("text-anchor", "end")
 .text(data_set_069.text_source)
 .style("fill", data_set_069.color_text_source);
-
 
 
 

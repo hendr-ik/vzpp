@@ -113,8 +113,8 @@ layout_group_069.append("rect")
 // GFX ------------------------------------------------------
 // ----------------------------------------------------------
 // Parse the Data
-//d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_069) {
-d3.csv("static/viz/069/data.csv", function(data_069) {
+d3.csv("http://niefeld.com/static/viz/069/data.csv", function(data_069) {
+//d3.csv("static/viz/069/data.csv", function(data_069) {
 
 // LAYER 0 --------------------------------------------------
 // X scale
@@ -229,8 +229,8 @@ var line_069 = d3.select(".gfx_layer_2")
 // LAYER 3 --------------------------------------------------
 // import illustration svg
 var illustration_069 = d3.select(".gfx_layer_3_sub");
-//d3.xml("http://niefeld.com/static/viz/069/illustration.svg", function(error, documentFragment) {
-d3.xml("static/viz/069/illustration.svg", function(error, documentFragment) {
+d3.xml("http://niefeld.com/static/viz/069/illustration.svg", function(error, documentFragment) {
+//d3.xml("static/viz/069/illustration.svg", function(error, documentFragment) {
 if (error) {console.log(error); return;}
 var svgNode_069 = documentFragment.getElementsByTagName("svg")[0];
 illustration_069.node().appendChild(svgNode_069);

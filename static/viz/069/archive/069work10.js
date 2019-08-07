@@ -11,7 +11,7 @@ center_y: 270,
 position_headline: 25,
 position_source: 500,
 // ----------------------------------------------------------
-text_headline: "Tracking Users",
+text_headline: "Tracking the User",
 text_subheadline_A_1: "Tracking Companies",
 text_subheadline_A_2: "Reach Top 5",
 text_subheadline_B_1: "Tracking Scripts",
@@ -113,8 +113,7 @@ layout_group_069.append("rect")
 // GFX ------------------------------------------------------
 // ----------------------------------------------------------
 // Parse the Data
-//d3.csv("http://niefeld.com/static/viz/068/data.csv", function(data_069) {
-d3.csv("static/viz/069/data.csv", function(data_069) {
+d3.csv("static/viz/069/data.csv", function(data) {
 
 // LAYER 0 --------------------------------------------------
 // X scale
@@ -124,7 +123,7 @@ var xScale_A_069 = d3.scaleLinear()
 // Y scale
 var yScale_A_069 = d3.scaleBand()
 .range([0,data_set_069.height_A])
-//.domain(data_069.map(function(d) { return d.company; }))
+//.domain(data.map(function(d) { return d.company; }))
 // fix for data map bug
 .domain(['Google', 'Facebook', 'comScore', 'Twitter', 'Yandex'])
 .padding(.1);
@@ -143,7 +142,7 @@ g.selectAll(".tick line").remove();
 // Bars
 gfx_layer_0_069.selectAll()
 // filter the data for first 5 entries of csv file
-.data(data_069.filter(function(d){
+.data(data.filter(function(d){
 if( d.count < 6 ){return d;}
 }))
 .enter()
@@ -157,7 +156,7 @@ if( d.count < 6 ){return d;}
 // Values on bars
 gfx_layer_0_069.selectAll()
 // filter the data for first 5 entries of csv file
-.data(data_069.filter(function(d){
+.data(data.filter(function(d){
 if( d.count < 6 ){return d;}
 }))
 .enter()
@@ -177,7 +176,7 @@ var xScale_B_069 = d3.scaleLinear()
 // Y scale
 var yScale_B_069 = d3.scaleBand()
 .range([0,data_set_069.height_B])
-.domain(data_069.map(function(d) { return d.script; }))
+.domain(data.map(function(d) { return d.script; }))
 .padding(.2);
 // add Y axis
 gfx_layer_1_069.append("g")
@@ -192,7 +191,7 @@ g.selectAll(".tick line").remove();
 };
 // Bars
 gfx_layer_1_069.selectAll()
-.data(data_069)
+.data(data)
 .enter()
 .append("rect")
 .attr("class", "rect_B")
@@ -203,7 +202,8 @@ gfx_layer_1_069.selectAll()
 .attr("fill", function(d) { return d.colorB });
 // Values on bars
 gfx_layer_1_069.selectAll()
-.data(data_069)
+// filter the data for first 5 entries of csv file
+.data(data)
 .enter()
 .append("text")
 .attr("class", "displayB_069")
@@ -225,17 +225,15 @@ var line_069 = d3.select(".gfx_layer_2")
 .attr("stroke-dasharray", "3,3").style("stroke-width", 1)
 .attr("stroke", data_set_069.color_axis_line);
 
-/*
 // LAYER 3 --------------------------------------------------
 // import illustration svg
 var illustration_069 = d3.select(".gfx_layer_3_sub");
-//d3.xml("http://niefeld.com/static/viz/069/illustration.svg", function(error, documentFragment) {
 d3.xml("static/viz/069/illustration.svg", function(error, documentFragment) {
 if (error) {console.log(error); return;}
-var svgNode_069 = documentFragment.getElementsByTagName("svg")[0];
-illustration_069.node().appendChild(svgNode_069);
+var svgNode = documentFragment.getElementsByTagName("svg")[0];
+illustration_069.node().appendChild(svgNode);
 });
-*/
+
 
 
 
